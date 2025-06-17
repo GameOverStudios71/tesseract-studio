@@ -1,0 +1,172 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+#left-menu {
+    min-height: calc(100vh - 112px); /* Full viewport height minus header and footer */
+    display: flex;
+    flex-direction: column;
+}
+
+#controls-area {
+    flex-grow: 1;
+    overflow-y: auto; /* Allow scrolling for many controls */
+}
+
+#canvas-area {
+    min-height: calc(100vh - 112px); /* Full viewport height minus header and footer */
+    border: 2px dashed #ccc;
+    padding: 20px;
+    overflow-y: auto; /* Allow scrolling for canvas content */
+    background-color: #f9f9f9; /* Light background for the canvas */
+}
+
+.draggable-control {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #0056b3;
+    border-radius: 5px;
+    cursor: grab;
+    text-align: center;
+    font-weight: bold;
+}
+
+.draggable-control:hover {
+    background-color: #0056b3;
+}
+
+.draggable-control:active {
+    cursor: grabbing;
+    background-color: #004085;
+}
+
+/* Placeholder for future styling of elements dropped on the canvas */
+.canvas-element {
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    position: relative; /* For potential controls like delete button */
+}
+
+.canvas-element.row {
+    background-color: #e9ecef; /* Light grey for rows */
+    border-color: #ced4da;
+}
+
+.canvas-element.col {
+    background-color: #f8f9fa; /* Lighter grey for columns */
+    border-color: #dee2e6;
+    min-height: 75px; /* Minimum height for columns to be visible and droppable */
+    display: flex; /* Allow columns to contain other elements */
+    flex-direction: column;
+    align-items: center; /* Center placeholder text if empty */
+    justify-content: center; /* Center placeholder text if empty */
+}
+
+.canvas-element.div-element { /* Specific styling for generic div elements */
+    background-color: #ffffff;
+    border: 1px dashed #6c757d; /* Dashed border for generic divs */
+    min-height: 50px;
+}
+
+
+/* Highlight for droppable areas */
+.drop-target-highlight {
+    background-color: #d6eaff !important; /* Light blue highlight */
+    border: 2px dashed #007bff !important;
+}
+
+/* Style for when an element is being dragged over a droppable area */
+.drag-over {
+    border-style: solid !important;
+    border-color: #0056b3 !important;
+}
+
+/* Left Menu Tab Styling */
+#left-menu .nav-pills .nav-link {
+    display: flex;
+    align-items: center; /* Vertically align icon and text */
+    margin-bottom: 5px; /* Space between tab items */
+    color: #495057; /* Default text color for tabs */
+}
+
+#left-menu .nav-pills .nav-link.active {
+    background-color: #007bff;
+    color: white;
+}
+
+#left-menu .nav-pills .nav-link:not(.active):hover {
+    background-color: #e9ecef; /* Light hover for non-active tabs */
+}
+
+#left-menu .nav-pills .nav-link svg {
+    margin-right: 8px; /* Space between icon and text */
+    width: 16px;       /* Explicit icon size */
+    height: 16px;      /* Explicit icon size */
+}
+
+/* Ensure the tabs section is clearly at the bottom */
+#left-menu > .p-2.border-top {
+    margin-top: auto; /* Pushes this div to the bottom of the flex container */
+}
+
+.is-dragging {
+    opacity: 0.5 !important; /* Use !important to ensure override if needed */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+    /* cursor: grabbing !important; */ /* cursor style is handled by :active for controls and dynamically for canvas elements if needed */
+}
+
+/* Ensure draggable controls from palette also show grabbing cursor when active */
+/* .draggable-control:active is already defined with cursor: grabbing; */
+
+
+/* drop-target-highlight is already defined, ensure it's effective */
+/*
+.drop-target-highlight {
+    background-color: #cce5ff !important;
+    outline: 2px dashed #007bff !important;
+    outline-offset: -2px;
+}
+*/
+/* Update existing .drop-target-highlight if needed, or confirm it's good */
+.drop-target-highlight {
+    background-color: #d6eaff !important; /* Existing light blue highlight */
+    border: 2px dashed #007bff !important; /* Existing border */
+    outline: 1px solid #0056b3 !important; /* Add an outline for more emphasis */
+    outline-offset: -3px; /* Offset to be inside the border */
+}
+
+
+/* #canvas-area.drag-over is already defined, ensure it's effective */
+/*
+#canvas-area.drag-over {
+    background-color: #e6f2ff !important;
+    border-color: #007bff !important;
+}
+
+/* Styling for Delete Button on Canvas Elements */
+.canvas-element {
+    position: relative; /* Needed for absolute positioning of the delete button */
+}
+
+.delete-element-btn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 10; /* Ensure it's above other content within the element */
+    padding: 0.1rem 0.3rem;
+    font-size: 0.8rem;
+    line-height: 1;
+   /* Making it very small and unobtrusive */
+}
+*/
+/* Update existing #canvas-area.drag-over if needed, or confirm it's good */
+#canvas-area.drag-over {
+    background-color: #e6f2ff !important; /* A slightly different shade for canvas vs element highlight */
+    border-style: solid !important; /* Ensure border style is solid */
+    border-color: #007bff !important;
+}
