@@ -1,0 +1,177 @@
+// ==========================================================================
+// SENTINEL BADGES
+// Extracted from StarTickets Sentinel UI
+// ==========================================================================
+
+@use '../base/variables' as *;
+
+// --------------------------------------------------------------------------
+// BASE BADGE
+// --------------------------------------------------------------------------
+.st-badge {
+    padding: var(--st-spacing-xs) var(--st-spacing-md);
+    border-radius: var(--st-radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--st-spacing-xs);
+    line-height: 1;
+    white-space: nowrap;
+}
+
+
+// --------------------------------------------------------------------------
+// SIZE VARIANTS
+// --------------------------------------------------------------------------
+.st-badge-sm {
+    padding: 2px var(--st-spacing-sm);
+    font-size: 0.625rem;
+}
+
+.st-badge-lg {
+    padding: var(--st-spacing-sm) var(--st-spacing-lg);
+    font-size: 0.875rem;
+}
+
+
+// --------------------------------------------------------------------------
+// STATUS BADGES
+// --------------------------------------------------------------------------
+.st-badge-waiting {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24; // Amber-400
+    border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.st-badge-called {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa; // Blue-400
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.st-badge-in-service {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80; // Green-400
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.st-badge-completed {
+    background: rgba(156, 163, 175, 0.2);
+    color: #d1d5db; // Gray-300
+    border: 1px solid rgba(156, 163, 175, 0.3);
+}
+
+.st-badge-cancelled {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171; // Red-400
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+
+// --------------------------------------------------------------------------
+// SEMANTIC BADGES
+// --------------------------------------------------------------------------
+.st-badge-success {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.st-badge-warning {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.3);
+}
+
+.st-badge-error {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.st-badge-info {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+
+// --------------------------------------------------------------------------
+// SPECIAL BADGES
+// --------------------------------------------------------------------------
+.st-badge-cyan {
+    background: rgba(6, 182, 212, 0.2);
+    color: #22d3ee; // Cyan-400
+    border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.st-badge-purple {
+    background: rgba(139, 92, 246, 0.2);
+    color: #a78bfa; // Purple-400
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.st-badge-emerald {
+    background: rgba(16, 185, 129, 0.2);
+    color: #34d399; // Emerald-400
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.st-badge-amber {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24; // Amber-400
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+
+// --------------------------------------------------------------------------
+// GLASS CHIP (Dashboard indicators)
+// --------------------------------------------------------------------------
+.st-glass-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--st-spacing-md);
+    padding: var(--st-spacing-xs) var(--st-spacing-lg);
+    border-radius: var(--st-radius-full);
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--st-shadow-md);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+
+// --------------------------------------------------------------------------
+// STATUS DOT (Inline indicator)
+// --------------------------------------------------------------------------
+.st-status-dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    display: inline-block;
+
+    &.online {
+        background: #22c55e; // Green-500
+        box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+        animation: st-pulse 2s infinite;
+    }
+
+    &.offline {
+        background: #6b7280; // Gray-500
+    }
+
+    &.busy {
+        background: #f59e0b; // Amber-500
+        box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+    }
+
+    &.error {
+        background: #ef4444; // Red-500
+        box-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+        animation: st-pulse 1s infinite;
+    }
+}

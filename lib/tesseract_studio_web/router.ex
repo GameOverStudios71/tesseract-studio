@@ -71,6 +71,7 @@ defmodule TesseractStudioWeb.Router do
       live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
       # Studio routes (authenticated)
       live "/projects", ProjectLive.Index, :index
+      live "/projects/:id", ProjectLive.Show, :show
       live "/projects/:id/builder", BuilderLive, :edit
     end
 

@@ -21,9 +21,9 @@ defmodule TesseractStudioWeb.ProjectLive.Index do
 
   defp header_actions(assigns) do
     ~H"""
-    <.button phx-click="new_project" class="shadow-lg shadow-blue-500/20 whitespace-nowrap">
+    <button phx-click="new_project" class="st-btn st-btn-premium st-btn-small whitespace-nowrap">
       + New Project
-    </.button>
+    </button>
     """
   end
 
@@ -85,49 +85,56 @@ defmodule TesseractStudioWeb.ProjectLive.Index do
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <%= if @projects == [] do %>
-          <div class="col-span-full text-center py-20 bg-slate-800/50 rounded-2xl border border-slate-700 border-dashed">
-            <div class="text-6xl mb-4">🧊</div>
-            <h3 class="text-xl font-semibold text-white">No projects yet</h3>
+          <div class="col-span-full st-card st-card-cyan text-center py-20">
+            <div class="text-6xl mb-4 opacity-50">🧊</div>
+            <h3 class="text-xl font-semibold text-white mb-2">No projects yet</h3>
             <p class="text-slate-400 mb-6">Create your first project to get started</p>
-            <.button phx-click="new_project">
-              Create Project
-            </.button>
+            <button phx-click="new_project" class="st-btn st-btn-cyan">
+              <span>+</span> Create Project
+            </button>
           </div>
         <% else %>
           <%= for project <- @projects do %>
-            <.card class="bg-slate-800 border-slate-700 hover:border-blue-500/50 transition-colors group hover:shadow-xl hover:shadow-blue-900/10">
-              <:header>
-                <div class="flex justify-between items-start w-full">
-                  <h3 class="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
-                    {project.name}
-                  </h3>
-                  <span class="text-xs font-mono text-slate-500 bg-slate-900 px-2 py-1 rounded">
-                    /{project.slug}
-                  </span>
-                </div>
-              </:header>
+            <.link navigate={~p"/projects/#{project.id}"} class="st-project-card group block">
+              <div class="flex justify-between items-start w-full mb-2">
+                <h3 class="st-project-card-title group-hover:text-cyan-400 transition-colors">
+                  {project.name}
+                </h3>
+                <span class="st-badge st-badge-cyan text-[10px] font-mono">
+                  /{project.slug}
+                </span>
+              </div>
 
-              <p class="text-slate-400 text-sm line-clamp-3 min-h-[4.5em]">
+              <p class="text-slate-400 text-sm line-clamp-2 min-h-[3em] mb-4">
                 {project.description || "No description provided."}
               </p>
-
-              <:footer>
-                <div class="flex gap-2 w-full justify-between items-center">
-                  <.button navigate={~p"/projects/#{project.id}/builder"} class="btn-sm btn-outline">
-                    Open Builder
-                  </.button>
-                  <button
-                    class="btn btn-ghost btn-sm btn-circle text-error hover:bg-error/10"
-                    phx-click="delete_project"
-                    phx-value-id={project.id}
-                    data-confirm="Are you sure you want to delete this project?"
-                    aria-label="Delete"
-                  >
-                    <.icon name="hero-trash" class="w-4 h-4" />
-                  </button>
+              
+    <!-- Project Stats -->
+              <div class="flex items-center justify-between text-xs text-slate-500 mb-4">
+                <div class="flex items-center gap-4">
+                  <span class="flex items-center gap-1">
+                    <i class="fa-solid fa-file-lines"></i>
+                    {length(project.pages)} pages
+                  </span>
                 </div>
-              </:footer>
-            </.card>
+                <span class="text-slate-600">
+                  Updated {Calendar.strftime(project.updated_at, "%b %d, %Y")}
+                </span>
+              </div>
+
+              <div class="flex gap-3 w-full justify-end items-center">
+                <button
+                  class="st-btn-icon-delete"
+                  phx-click="delete_project"
+                  phx-value-id={project.id}
+                  data-confirm="Are you sure you want to delete this project?"
+                  aria-label="Delete"
+                  onclick="event.preventDefault(); event.stopPropagation();"
+                >
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            </.link>
           <% end %>
         <% end %>
       </div>

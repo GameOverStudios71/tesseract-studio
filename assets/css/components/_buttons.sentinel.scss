@@ -1,0 +1,224 @@
+// ==========================================================================
+// SENTINEL BUTTONS
+// Extracted from StarTickets Sentinel UI
+// ==========================================================================
+
+@use '../base/variables' as *;
+
+// --------------------------------------------------------------------------
+// BASE BUTTON
+// --------------------------------------------------------------------------
+.st-btn {
+    // Touch Target Compliance
+    min-height: var(--st-touch-target-min);
+
+    // Visual Styling
+    background: linear-gradient(135deg, var(--st-color-success) 0%, var(--st-color-success-light) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: var(--st-spacing-sm) var(--st-spacing-lg);
+    border-radius: var(--st-radius-md);
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: transform var(--st-transition-fast), box-shadow var(--st-transition-fast), background var(--st-transition-fast);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--st-spacing-sm);
+    box-shadow: var(--st-shadow-md);
+    text-decoration: none;
+
+    &:hover {
+        background: linear-gradient(135deg, var(--st-color-success-light) 0%, var(--st-color-success) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(39, 174, 96, 0.3);
+    }
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: var(--st-shadow-focus), var(--st-shadow-md);
+    }
+
+    &:active {
+        transform: translateY(0) scale(0.98);
+    }
+
+    &:disabled,
+    &[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+}
+
+
+// --------------------------------------------------------------------------
+// BUTTON VARIANTS
+// --------------------------------------------------------------------------
+
+// Primary (Blue)
+.st-btn-primary {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+
+    &:hover {
+        background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+        box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
+    }
+}
+
+// Accent (Danger/Red)
+.st-btn-accent {
+    background: linear-gradient(135deg, var(--st-color-accent) 0%, var(--st-color-accent-dark) 100%);
+
+    &:hover {
+        background: linear-gradient(135deg, var(--st-color-accent-dark) 0%, var(--st-color-accent) 100%);
+        box-shadow: 0 6px 12px rgba(231, 76, 60, 0.3);
+    }
+}
+
+// Cyan (Sentinel Signature)
+.st-btn-cyan {
+    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+
+    &:hover {
+        background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
+        box-shadow: 0 6px 12px rgba(6, 182, 212, 0.4);
+    }
+}
+
+// Purple
+.st-btn-purple {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+
+    &:hover {
+        background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+        box-shadow: 0 6px 12px rgba(139, 92, 246, 0.4);
+    }
+}
+
+// Navy Blue (Dark Blue)
+.st-btn-navy {
+    background: linear-gradient(135deg, #1e3a5f 0%, #0f2744 100%);
+
+    &:hover {
+        background: linear-gradient(135deg, #0f2744 0%, #1e3a5f 100%);
+        box-shadow: 0 6px 12px rgba(30, 58, 95, 0.5);
+    }
+}
+
+// Acrylic/Ghost Button (Transparent)
+.st-btn-acrylic {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        transform: translateY(-2px);
+    }
+}
+
+// Ghost Button (Minimal)
+.st-btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: none;
+    }
+}
+
+// Premium Animated Button (Green Gradient)
+.st-btn-premium {
+    background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    background-size: 200% auto;
+    animation: st-gradientMove 3s ease infinite;
+
+    &:hover {
+        background-position: right center;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+    }
+}
+
+
+// --------------------------------------------------------------------------
+// SIZE VARIANTS
+// --------------------------------------------------------------------------
+.st-btn-large {
+    min-height: var(--st-touch-target-comfortable);
+    padding: var(--st-spacing-lg) var(--st-spacing-xl);
+    font-size: 1.2rem;
+}
+
+.st-btn-small {
+    min-height: 2rem;
+    padding: var(--st-spacing-xs) var(--st-spacing-md);
+    font-size: 0.875rem;
+}
+
+// Icon-only Button
+.st-btn-icon {
+    min-width: var(--st-touch-target-min);
+    min-height: var(--st-touch-target-min);
+    padding: var(--st-spacing-sm);
+    border-radius: var(--st-radius-full);
+}
+
+// Delete Icon Button (Red hover)
+.st-btn-icon-delete {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--st-radius-md);
+    color: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all var(--st-transition-fast);
+
+    &:hover {
+        background: rgba(239, 68, 68, 0.2);
+        border-color: rgba(239, 68, 68, 0.5);
+        color: #ef4444;
+    }
+}
+
+
+// --------------------------------------------------------------------------
+// LOGOUT BUTTON
+// --------------------------------------------------------------------------
+.st-logout-btn {
+    min-height: var(--st-touch-target-min);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: var(--st-spacing-sm) var(--st-spacing-md);
+    border-radius: var(--st-radius-md);
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all var(--st-transition-fast);
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-1px);
+    }
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: var(--st-shadow-focus);
+    }
+}

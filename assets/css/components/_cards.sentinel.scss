@@ -1,0 +1,262 @@
+// ==========================================================================
+// SENTINEL CARDS
+// Extracted from StarTickets Sentinel UI
+// ==========================================================================
+
+@use '../base/variables' as *;
+
+// --------------------------------------------------------------------------
+// BASE CARD
+// --------------------------------------------------------------------------
+.st-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--st-radius-lg);
+    padding: var(--st-spacing-lg);
+    color: white;
+    transition: transform var(--st-transition-fast), box-shadow var(--st-transition-fast), border-color var(--st-transition-fast);
+
+    // Glassmorphism
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--st-shadow-xl);
+}
+
+
+// --------------------------------------------------------------------------
+// INTERACTIVE CARD
+// --------------------------------------------------------------------------
+.st-card-interactive {
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--st-shadow-lg);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: var(--st-shadow-focus);
+    }
+
+    &:active {
+        transform: translateY(0) scale(0.99);
+    }
+}
+
+
+// --------------------------------------------------------------------------
+// NAVIGATION CARD
+// --------------------------------------------------------------------------
+.st-nav-card {
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    cursor: pointer;
+    min-height: var(--st-touch-target-comfortable);
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--st-shadow-xl);
+    }
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: var(--st-shadow-focus);
+    }
+
+    .st-icon {
+        font-size: 3rem;
+        margin-bottom: var(--st-spacing-md);
+        display: block;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+        margin: var(--st-spacing-sm) 0 var(--st-spacing-xs) 0;
+        font-size: 1.5rem;
+        color: white;
+        line-height: 1.25;
+    }
+
+    p {
+        color: rgba(255, 255, 255, 0.7);
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+}
+
+
+// --------------------------------------------------------------------------
+// COLORED CARD VARIANTS
+// --------------------------------------------------------------------------
+.st-card-cyan {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(6, 182, 212, 0.3);
+
+    &:hover {
+        border-color: rgba(6, 182, 212, 0.5);
+        box-shadow: 0 10px 30px rgba(6, 182, 212, 0.2);
+    }
+
+    .st-card-header {
+        color: #22d3ee; // Cyan-400
+    }
+}
+
+.st-card-purple {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(139, 92, 246, 0.3);
+
+    &:hover {
+        border-color: rgba(139, 92, 246, 0.5);
+        box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+    }
+
+    .st-card-header {
+        color: #a78bfa; // Purple-400
+    }
+}
+
+.st-card-emerald {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(16, 185, 129, 0.3);
+
+    &:hover {
+        border-color: rgba(16, 185, 129, 0.5);
+        box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
+    }
+
+    .st-card-header {
+        color: #34d399; // Emerald-400
+    }
+}
+
+.st-card-amber {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(245, 158, 11, 0.3);
+
+    &:hover {
+        border-color: rgba(245, 158, 11, 0.5);
+        box-shadow: 0 10px 30px rgba(245, 158, 11, 0.2);
+    }
+
+    .st-card-header {
+        color: #fbbf24; // Amber-400
+    }
+}
+
+
+// --------------------------------------------------------------------------
+// CARD ELEMENTS
+// --------------------------------------------------------------------------
+.st-card-header {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    margin-bottom: var(--st-spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--st-spacing-sm);
+}
+
+.st-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: var(--st-spacing-xs);
+}
+
+.st-card-description {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.5;
+}
+
+.st-card-footer {
+    margin-top: var(--st-spacing-lg);
+    padding-top: var(--st-spacing-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+// --------------------------------------------------------------------------
+// PROJECT CARD (Specific for TesseractStudio)
+// --------------------------------------------------------------------------
+.st-project-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--st-radius-xl);
+    padding: var(--st-spacing-xl);
+
+    // Glassmorphism
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--st-shadow-xl);
+
+    cursor: pointer;
+    transition: all var(--st-transition-fast);
+
+    // Hover glow effect (Navy Blue)
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(30, 58, 95, 0.7), transparent);
+        opacity: 0;
+        transition: opacity var(--st-transition-fast);
+    }
+
+    &:hover {
+        transform: translateY(-4px);
+        border-color: rgba(30, 58, 95, 0.6);
+        box-shadow:
+            var(--st-shadow-xl),
+            0 0 30px rgba(30, 58, 95, 0.25);
+
+        &::before {
+            opacity: 1;
+        }
+    }
+
+    &:focus-visible {
+        outline: none;
+        box-shadow: var(--st-shadow-focus);
+    }
+}
+
+.st-project-card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: var(--st-spacing-xs);
+}
+
+.st-project-card-slug {
+    font-size: 0.875rem;
+    color: #22d3ee; // Cyan-400
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: var(--st-spacing-md);
+}
+
+.st-project-card-meta {
+    display: flex;
+    gap: var(--st-spacing-lg);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}

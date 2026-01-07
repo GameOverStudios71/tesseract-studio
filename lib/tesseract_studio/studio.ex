@@ -18,6 +18,7 @@ defmodule TesseractStudio.Studio do
     Project
     |> where([p], p.user_id == ^user_id)
     |> order_by([p], desc: p.updated_at)
+    |> preload(:pages)
     |> Repo.all()
   end
 
