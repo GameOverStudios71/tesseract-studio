@@ -1,0 +1,33 @@
+// ==========================================================================
+// TESSERACT STUDIO - MAIN SCSS FILE
+// ==========================================================================
+// This file imports all SCSS modules in the correct order.
+// Run: sass main.scss main.css
+// ==========================================================================
+
+// --------------------------------------------------------------------------
+// BASE - Variables, Mixins, Reset
+// --------------------------------------------------------------------------
+@use 'base/variables';
+@use 'base/mixins';
+@use 'base/reset';
+@use 'base/premium';
+
+// --------------------------------------------------------------------------
+// COMPONENTS - Reusable UI components
+// --------------------------------------------------------------------------
+@use 'components/buttons';
+@use 'components/forms';
+// @use 'components/modal';
+// @use 'components/cards';
+@use 'components/editor';
+
+// --------------------------------------------------------------------------
+// LAYOUT - Page-specific layouts
+// --------------------------------------------------------------------------
+// @use 'layout/projects';
+@use 'layout/builder';
+@use 'layout/page';
+
+// React Flow
+@use '../vendor/react_flow';

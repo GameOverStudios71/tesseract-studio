@@ -1,0 +1,219 @@
+// ==========================================================================
+// RESPONSIVE MIXINS
+// Mobile-first approach
+// ==========================================================================
+
+@use 'variables' as *;
+
+// --------------------------------------------------------------------------
+// BREAKPOINT MIXINS
+// --------------------------------------------------------------------------
+
+// Mobile first - min-width
+@mixin sm {
+    @media (min-width: $breakpoint-sm) {
+        @content;
+    }
+}
+
+@mixin md {
+    @media (min-width: $breakpoint-md) {
+        @content;
+    }
+}
+
+@mixin lg {
+    @media (min-width: $breakpoint-lg) {
+        @content;
+    }
+}
+
+@mixin xl {
+    @media (min-width: $breakpoint-xl) {
+        @content;
+    }
+}
+
+@mixin xxl {
+    @media (min-width: $breakpoint-2xl) {
+        @content;
+    }
+}
+
+// Desktop first - max-width
+@mixin mobile-only {
+    @media (max-width: #{$breakpoint-sm - 1px}) {
+        @content;
+    }
+}
+
+@mixin tablet-down {
+    @media (max-width: #{$breakpoint-md - 1px}) {
+        @content;
+    }
+}
+
+@mixin desktop-down {
+    @media (max-width: #{$breakpoint-lg - 1px}) {
+        @content;
+    }
+}
+
+
+// --------------------------------------------------------------------------
+// UTILITY MIXINS
+// --------------------------------------------------------------------------
+
+// Flexbox shortcuts
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+// Typography
+@mixin truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin line-clamp($lines: 2) {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+// Touch target (Apple HIG: min 44px)
+@mixin touch-target {
+    min-width: $touch-target-min;
+    min-height: $touch-target-min;
+}
+
+// Focus ring
+@mixin focus-ring {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($accent-blue, 0.3);
+}
+
+// Transition
+@mixin transition($properties...) {
+    transition-property: $properties;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+}
+
+// Card style
+@mixin card {
+    background: $bg-secondary;
+    border: 1px solid $border-default;
+    border-radius: $card-radius;
+    padding: $card-padding;
+}
+
+// Button base
+@mixin button-base {
+    @include touch-target;
+    @include transition(background, transform, box-shadow);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-2;
+    padding: $btn-padding-y $btn-padding-x;
+    border: none;
+    border-radius: $radius-md;
+    font-family: $font-family;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:focus-visible {
+        @include focus-ring;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+// Input base
+@mixin input-base {
+    width: 100%;
+    padding: $input-padding;
+    background: $bg-primary;
+    border: $input-border-width solid $border-default;
+    border-radius: $radius-md;
+    color: $text-primary;
+    font-family: $font-family;
+    font-size: $font-size-base;
+    @include transition(border-color, box-shadow);
+
+    &::placeholder {
+        color: $text-muted;
+    }
+
+    &:focus {
+        outline: none;
+        border-color: $border-focus;
+        @include focus-ring;
+    }
+
+    &.error {
+        border-color: $accent-red;
+    }
+}
+
+// Scrollbar styling
+@mixin custom-scrollbar {
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: $bg-primary;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: $bg-tertiary;
+        border-radius: $radius-full;
+
+        &:hover {
+            background: $bg-hover;
+        }
+    }
+}
+
+// Container with max-width
+@mixin container {
+    width: 100%;
+    max-width: $breakpoint-xl;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: $spacing-4;
+    padding-right: $spacing-4;
+
+    @include md {
+        padding-left: $spacing-6;
+        padding-right: $spacing-6;
+    }
+
+    @include lg {
+        padding-left: $spacing-8;
+        padding-right: $spacing-8;
+    }
+}

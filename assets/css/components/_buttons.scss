@@ -1,0 +1,105 @@
+// ==========================================================================
+// BUTTON COMPONENTS
+// ==========================================================================
+
+@use '../base/variables' as *;
+@use '../base/mixins' as *;
+
+// --------------------------------------------------------------------------
+// Primary Button
+// --------------------------------------------------------------------------
+.ts-btn-primary {
+    @include button-base;
+    background: $accent-blue;
+    color: $text-white;
+
+    &:hover:not(:disabled) {
+        background: $accent-blue-hover;
+        transform: translateY(-1px);
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+    }
+}
+
+// --------------------------------------------------------------------------
+// Secondary Button
+// --------------------------------------------------------------------------
+.ts-btn-secondary {
+    @include button-base;
+    background: $bg-tertiary;
+    color: $text-primary;
+
+    &:hover:not(:disabled) {
+        background: $bg-hover;
+    }
+}
+
+// --------------------------------------------------------------------------
+// Danger Button
+// --------------------------------------------------------------------------
+.ts-btn-danger {
+    @include button-base;
+    background: $accent-red;
+    color: $text-white;
+
+    &:hover:not(:disabled) {
+        background: $accent-red-hover;
+    }
+}
+
+// --------------------------------------------------------------------------
+// Ghost Button
+// --------------------------------------------------------------------------
+.ts-btn-ghost {
+    @include button-base;
+    background: transparent;
+    color: $text-secondary;
+
+    &:hover:not(:disabled) {
+        background: $bg-tertiary;
+        color: $text-primary;
+    }
+}
+
+// --------------------------------------------------------------------------
+// Icon Button (square, for icons only)
+// --------------------------------------------------------------------------
+.ts-btn-icon {
+    @include button-base;
+    padding: $spacing-2;
+    background: transparent;
+    color: $text-secondary;
+    border: 1px solid $border-default;
+
+    &:hover:not(:disabled) {
+        background: $bg-tertiary;
+        color: $text-primary;
+        border-color: $border-light;
+    }
+
+    &--danger {
+        border-color: rgba($accent-red, 0.3);
+        color: $accent-red-light;
+
+        &:hover:not(:disabled) {
+            background: rgba($accent-red, 0.2);
+            border-color: $accent-red;
+        }
+    }
+}
+
+// --------------------------------------------------------------------------
+// Button Sizes
+// --------------------------------------------------------------------------
+.ts-btn-sm {
+    padding: $btn-padding-y-sm $btn-padding-x-sm;
+    font-size: $font-size-xs;
+    min-height: 36px;
+}
+
+.ts-btn-lg {
+    padding: $spacing-4 $spacing-8;
+    font-size: $font-size-base;
+}

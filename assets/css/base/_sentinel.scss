@@ -1,0 +1,294 @@
+// ==========================================================================
+// SENTINEL DESIGN SYSTEM - BASE STYLES
+// Extracted from StarTickets Sentinel UI
+// ==========================================================================
+
+@use 'variables' as *;
+
+// --------------------------------------------------------------------------
+// CSS VARIABLES (Sentinel Theme)
+// --------------------------------------------------------------------------
+:root {
+    // Colors - Sentinel Palette
+    --st-color-primary: #2c3e50;
+    --st-color-primary-light: #34495e;
+    --st-color-primary-dark: #1a252f;
+    --st-color-accent: #e74c3c;
+    --st-color-accent-dark: #c0392b;
+    --st-color-success: #27ae60;
+    --st-color-success-light: #2ecc71;
+    --st-color-warning: #f39c12;
+    --st-color-info: #3498db;
+    --st-color-danger: #e74c3c;
+
+    // Acrylic Effect Variables
+    --st-acrylic-base-color: 190, 190, 190;
+    --st-acrylic-opacity: 0.1;
+    --st-acrylic-opacity-hover: 0.15;
+    --st-acrylic-opacity-strong: 0.2;
+    --st-acrylic-blur: 20px;
+    --st-acrylic-blur-strong: 30px;
+    --st-acrylic-saturate: 180%;
+    --st-acrylic-brightness: 1.1;
+
+    // Glass variables
+    --st-glass-bg: rgba(var(--st-acrylic-base-color), var(--st-acrylic-opacity));
+    --st-glass-bg-strong: rgba(var(--st-acrylic-base-color), var(--st-acrylic-opacity-strong));
+    --st-glass-bg-dark: rgba(0, 0, 0, 0.3);
+    --st-glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+    // Text Colors
+    --st-text-title: #FFFFFF;
+    --st-text-subtitle: #E5E7EB;
+    --st-text-body: #D1D5DB;
+    --st-text-muted: #9CA3AF;
+    --st-text-link: #60A5FA;
+
+    // Touch Targets (HIG Compliance)
+    --st-touch-target-min: 2.75rem;
+    --st-touch-target-comfortable: 3rem;
+
+    // Spacing (8pt Grid)
+    --st-spacing-xs: 0.25rem;
+    --st-spacing-sm: 0.5rem;
+    --st-spacing-md: 1rem;
+    --st-spacing-lg: 1.5rem;
+    --st-spacing-xl: 2rem;
+    --st-spacing-2xl: 2.5rem;
+    --st-spacing-3xl: 3rem;
+
+    // Radius
+    --st-radius-sm: 4px;
+    --st-radius-md: 8px;
+    --st-radius-lg: 12px;
+    --st-radius-xl: 16px;
+    --st-radius-2xl: 24px;
+    --st-radius-full: 9999px;
+
+    // Shadows
+    --st-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --st-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --st-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --st-shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+    --st-shadow-focus: 0 0 0 3px rgba(59, 130, 246, 0.5);
+
+    // Transitions
+    --st-transition-instant: 0.05s ease;
+    --st-transition-fast: 0.15s ease;
+    --st-transition-normal: 0.3s ease;
+    --st-transition-slow: 0.5s ease;
+}
+
+
+// --------------------------------------------------------------------------
+// ANIMATIONS
+// --------------------------------------------------------------------------
+@keyframes st-fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes st-slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes st-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes st-heartbeat {
+    0% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform: scale(1.15);
+    }
+
+    30% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.15);
+    }
+
+    60% {
+        transform: scale(1);
+    }
+}
+
+@keyframes st-gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+// --------------------------------------------------------------------------
+// ACRYLIC EFFECTS (Glassmorphism)
+// --------------------------------------------------------------------------
+
+// Base Acrylic Effect
+.st-acrylic {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(var(--st-acrylic-blur));
+    -webkit-backdrop-filter: blur(var(--st-acrylic-blur));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--st-shadow-md);
+}
+
+// Strong Acrylic (more opaque)
+.st-acrylic-strong {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(var(--st-acrylic-blur-strong));
+    -webkit-backdrop-filter: blur(var(--st-acrylic-blur-strong));
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--st-shadow-xl);
+}
+
+// Light Acrylic (subtle)
+.st-acrylic-light {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--st-shadow-md);
+}
+
+// Dark Acrylic
+.st-acrylic-dark {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: var(--st-shadow-xl);
+}
+
+// Semantic Acrylic Variants
+.st-acrylic-success {
+    background: rgba(16, 185, 129, 0.4);
+    backdrop-filter: blur(var(--st-acrylic-blur));
+    -webkit-backdrop-filter: blur(var(--st-acrylic-blur));
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    box-shadow: var(--st-shadow-lg);
+}
+
+.st-acrylic-warning {
+    background: rgba(245, 158, 11, 0.4);
+    backdrop-filter: blur(var(--st-acrylic-blur));
+    -webkit-backdrop-filter: blur(var(--st-acrylic-blur));
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    box-shadow: var(--st-shadow-lg);
+}
+
+.st-acrylic-danger {
+    background: rgba(239, 68, 68, 0.4);
+    backdrop-filter: blur(var(--st-acrylic-blur));
+    -webkit-backdrop-filter: blur(var(--st-acrylic-blur));
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    box-shadow: var(--st-shadow-lg);
+}
+
+.st-acrylic-info {
+    background: rgba(59, 130, 246, 0.4);
+    backdrop-filter: blur(var(--st-acrylic-blur));
+    -webkit-backdrop-filter: blur(var(--st-acrylic-blur));
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    box-shadow: var(--st-shadow-lg);
+}
+
+// Fallback for browsers without backdrop-filter
+@supports not ((backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px))) {
+
+    .st-acrylic,
+    .st-acrylic-strong,
+    .st-acrylic-light,
+    .st-acrylic-dark {
+        background: rgba(20, 20, 25, 0.95);
+    }
+}
+
+
+// --------------------------------------------------------------------------
+// APP BACKGROUND
+// --------------------------------------------------------------------------
+.st-app {
+    min-height: 100vh;
+    color: white;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.st-app.has-background {
+    background-color: #0a0a0f;
+    background-image:
+        radial-gradient(ellipse at top, rgba(6, 182, 212, 0.15), transparent 50%),
+        radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.1), transparent 50%);
+}
+
+
+// --------------------------------------------------------------------------
+// UTILITY CLASSES
+// --------------------------------------------------------------------------
+.st-animate-fadeIn {
+    animation: st-fadeIn 0.3s ease-out;
+}
+
+.st-animate-slideUp {
+    animation: st-slideUp 0.3s ease-out;
+}
+
+.st-animate-pulse {
+    animation: st-pulse 2s infinite;
+}
+
+// Custom Scrollbar
+.custom-scrollbar {
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 3px;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    }
+}
