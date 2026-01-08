@@ -21,8 +21,9 @@ defmodule TesseractStudio.Studio.Page do
     |> cast(attrs, [:name, :slug, :content, :node_id, :position_x, :position_y, :project_id])
     |> validate_required([:name, :node_id, :project_id])
     |> generate_slug()
-    |> validate_format(:slug, ~r/^[a-z0-9-]+$/,
-      message: "must be lowercase alphanumeric with dashes"
+    # Allow alphanumeric with dashes OR exactly "/"
+    |> validate_format(:slug, ~r/^([a-z0-9-]+|\/)$/,
+      message: "must be lowercase alphanumeric with dashes or '/'"
     )
     |> validate_length(:slug, min: 1, max: 100)
     |> unique_constraint([:project_id, :slug])

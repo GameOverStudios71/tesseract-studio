@@ -33,11 +33,11 @@ defmodule TesseractStudioWeb.BuilderLive do
     project = socket.assigns.project
 
     attrs = %{
-      "name" => params["name"],
-      "slug" => params["slug"],
-      "node_id" => params["node_id"],
-      "position_x" => params["position_x"],
-      "position_y" => params["position_y"]
+      "name" => params["name"] || "Page #{length(socket.assigns.nodes) + 1}",
+      "slug" => params["slug"] || "page-#{length(socket.assigns.nodes) + 1}",
+      "node_id" => params["node_id"] || "node-#{System.unique_integer([:positive])}",
+      "position_x" => params["position_x"] || 150.0 + :rand.uniform(300),
+      "position_y" => params["position_y"] || 150.0 + :rand.uniform(300)
     }
 
     case Studio.create_page(project, attrs) do
@@ -136,6 +136,9 @@ defmodule TesseractStudioWeb.BuilderLive do
 
   defp header_actions(assigns) do
     ~H"""
+    <button phx-click="add_page" class="st-btn st-btn-premium st-btn-small whitespace-nowrap">
+      <i class="fa-solid fa-plus mr-2"></i> Add Page
+    </button>
     """
   end
 

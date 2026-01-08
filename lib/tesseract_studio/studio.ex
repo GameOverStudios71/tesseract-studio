@@ -56,7 +56,7 @@ defmodule TesseractStudio.Studio do
         # Create default Home page
         create_page(project, %{
           "name" => "Home",
-          "slug" => "home",
+          "slug" => "/",
           "node_id" => "node-home-#{Ecto.UUID.generate()}",
           "position_x" => 250,
           "position_y" => 250,
@@ -175,7 +175,8 @@ defmodule TesseractStudio.Studio do
   def delete_page_by_node_id(project_id, node_id) do
     case get_page_by_node_id(project_id, node_id) do
       nil -> {:error, :not_found}
-      # Prevent deleting home page
+      # Prevent deleting home page (root)
+      %Page{slug: "/"} -> {:error, :forbidden}
       %Page{slug: "home"} -> {:error, :forbidden}
       page -> delete_page(page)
     end

@@ -37,6 +37,7 @@ defmodule TesseractStudioWeb.Router do
 
     live_session :public_pages,
       on_mount: [{TesseractStudioWeb.UserAuth, :mount_current_scope}] do
+      live "/:project_slug", PageLive.Show, :root
       live "/:project_slug/:page_slug", PageLive.Show, :show
     end
   end

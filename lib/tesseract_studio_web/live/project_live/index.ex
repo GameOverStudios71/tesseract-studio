@@ -102,13 +102,17 @@ defmodule TesseractStudioWeb.ProjectLive.Index do
     <div class="max-w-7xl mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <%= if @projects == [] do %>
-          <div class="col-span-full st-card st-card-cyan text-center py-20">
-            <div class="text-6xl mb-4 opacity-50">🧊</div>
-            <h3 class="text-xl font-semibold text-white mb-2">No projects yet</h3>
-            <p class="text-slate-400 mb-6">Create your first project to get started</p>
-            <button phx-click="new_project" class="st-btn st-btn-cyan">
-              <span>+</span> Create Project
-            </button>
+          <div class="col-span-full flex justify-center">
+            <div class="st-card st-card-cyan text-center py-12 px-8 max-w-lg w-full flex flex-col items-center gap-6">
+              <div class="text-6xl opacity-50">🧊</div>
+              <div class="flex flex-col gap-2">
+                <h3 class="text-xl font-semibold text-white">No projects yet</h3>
+                <p class="text-slate-400">Create your first project to get started</p>
+              </div>
+              <button phx-click="new_project" class="st-btn st-btn-cyan">
+                <span>+</span> Create Project
+              </button>
+            </div>
           </div>
         <% else %>
           <%= for project <- @projects do %>
@@ -163,14 +167,22 @@ defmodule TesseractStudioWeb.ProjectLive.Index do
 
     <.modal :if={@show_modal} id="new-project-modal" show={true} on_cancel={JS.push("close_modal")}>
       <:title>New Project</:title>
-      <.simple_form for={@changeset} phx-change="validate" phx-submit="save">
-        <.input field={@changeset[:name]} label="Project Name" placeholder="My Awesome Project" />
+      <.simple_form for={@changeset} :let={f} phx-change="validate" phx-submit="save" class="!space-y-6 [&_.label]:!text-base [&_.label]:!font-medium [&_.label]:!text-white/80">
         <.input
-          field={@changeset[:description]}
-          type="textarea"
-          label="Description (optional)"
-          placeholder="Describe your project..."
+          field={f[:name]}
+          label="Project Name"
+          placeholder="My Awesome Project"
+          class="bg-black/20 border-white/10 focus:border-cyan-500/50 focus:ring-cyan-500/20 text-white placeholder-slate-600 rounded-lg w-full !px-4 !py-3 !text-lg"
         />
+        <div class="!mt-8">
+          <.input
+            field={f[:description]}
+            type="textarea"
+            label="Description (optional)"
+            placeholder="Describe your project..."
+            class="bg-black/20 border-white/10 focus:border-cyan-500/50 focus:ring-cyan-500/20 text-white placeholder-slate-600 rounded-lg w-full !px-4 !py-3 !text-sm min-h-[120px]"
+          />
+        </div>
 
         <:actions>
           <.button type="button" class="btn-ghost" phx-click="close_modal">Cancel</.button>

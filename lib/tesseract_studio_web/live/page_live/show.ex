@@ -4,7 +4,9 @@ defmodule TesseractStudioWeb.PageLive.Show do
   alias TesseractStudio.Studio
 
   @impl true
-  def mount(%{"project_slug" => project_slug, "page_slug" => page_slug}, _session, socket) do
+  def mount(params, _session, socket) do
+    project_slug = params["project_slug"]
+    page_slug = params["page_slug"] || "/"
     case Studio.get_project_by_slug!(project_slug) do
       nil ->
         {:ok,
