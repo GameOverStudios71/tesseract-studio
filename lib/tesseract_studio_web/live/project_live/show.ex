@@ -9,6 +9,7 @@ defmodule TesseractStudioWeb.ProjectLive.Show do
 
     {:ok,
      socket
+     |> assign(:active_tab, :projects)
      |> assign(:project, project)
      |> assign(:page_title, project.name)
      |> assign(:header_title, project.name)

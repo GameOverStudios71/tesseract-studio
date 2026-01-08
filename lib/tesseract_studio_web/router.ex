@@ -77,6 +77,7 @@ defmodule TesseractStudioWeb.Router do
       # Studio routes (authenticated)
       live "/projects", ProjectLive.Index, :index
       live "/projects/:id", ProjectLive.Show, :show
+      live "/projects/:id/flow", FlowLive, :edit
       live "/projects/:id/builder", BuilderLive, :edit
     end
 

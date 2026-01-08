@@ -88,43 +88,9 @@
 </nav>
 
 <!-- SIDEBAR -->
-<aside id="sidebar" class="st-sidebar collapsed">
-  <div class="st-sidebar-header">
-    <span class="st-sidebar-header-text">Menu</span>
-    <button class="st-sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('collapsed'); document.getElementById('main-content').classList.toggle('sidebar-collapsed');">
-      <i class="fa-solid fa-chevron-left"></i>
-    </button>
-  </div>
-  
-  <nav class="st-sidebar-nav">
-    <div class="st-sidebar-section">
-      <a href="/projects" class="st-sidebar-item active">
-        <i class="st-sidebar-item-icon fa-solid fa-folder-open"></i>
-        <span class="st-sidebar-item-text">Projects</span>
-      </a>
-      
-      <!-- Project Sub-items (shown when in project context) -->
-      <%= if assigns[:project] do %>
-        <a href={~p"/projects/#{@project.id}/flow"} class="st-sidebar-subitem">
-          <i class="st-sidebar-item-icon fa-solid fa-diagram-project"></i>
-          <span class="st-sidebar-item-text">Flow Design</span>
-        </a>
-        <a href={~p"/projects/#{@project.id}/builder"} class="st-sidebar-subitem">
-          <i class="st-sidebar-item-icon fa-solid fa-cubes"></i>
-          <span class="st-sidebar-item-text">System Builder</span>
-        </a>
-      <% end %>
-    </div>
-  </nav>
-  
-  <!-- Settings at bottom -->
-  <div class="st-sidebar-footer">
-    <a href="/users/settings" class="st-sidebar-item">
-      <i class="st-sidebar-item-icon fa-solid fa-gear"></i>
-      <span class="st-sidebar-item-text">Settings</span>
-    </a>
-  </div>
-</aside>
+<%= if assigns[:current_scope] do %>
+  <.sidebar active_tab={assigns[:active_tab]} project={assigns[:project]} />
+<% end %>
 
 <main id="main-content" class="st-main-with-sidebar sidebar-collapsed" style="padding-top: 80px; padding-bottom: 20px; padding-right: 20px; padding-left: 20px;">
   <%= if assigns[:inner_content], do: @inner_content, else: render_slot(@inner_block) %>

@@ -138,7 +138,7 @@ defmodule TesseractStudioWeb.UserLive.Settings do
       |> assign(:password_form, to_form(password_changeset))
       |> assign(:trigger_submit, false)
 
-    {:ok, socket}
+    {:ok, assign(socket, :active_tab, :settings)}
   end
 
   @impl true

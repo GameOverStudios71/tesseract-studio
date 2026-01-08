@@ -31,6 +31,71 @@ defmodule TesseractStudioWeb.CoreComponents do
 
   alias Phoenix.LiveView.JS
 
+  use Phoenix.VerifiedRoutes,
+    endpoint: TesseractStudioWeb.Endpoint,
+    router: TesseractStudioWeb.Router,
+    statics: TesseractStudioWeb.static_paths()
+
+  @doc """
+  Renders the application sidebar.
+  """
+  attr :active_tab, :atom, default: :projects
+  attr :project, :any, default: nil
+
+  def sidebar(assigns) do
+    ~H"""
+    <aside id="sidebar" class="st-sidebar collapsed">
+      <div class="st-sidebar-header">
+        <span class="st-sidebar-header-text">Menu</span>
+        <button class="st-sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('collapsed'); document.getElementById('main-content').classList.toggle('sidebar-collapsed');">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+      </div>
+      
+      <nav class="st-sidebar-nav">
+        <div class="st-sidebar-section">
+          <.link
+            navigate="/projects"
+            class={["st-sidebar-item", (@active_tab in [:projects, :flow, :builder]) && "active"]}
+          >
+            <i class="st-sidebar-item-icon fa-solid fa-folder-open"></i>
+            <span class="st-sidebar-item-text">Projects</span>
+          </.link>
+          
+          <!-- Project Sub-items (shown when in project context) -->
+          <%= if @project do %>
+            <.link
+              navigate={~p"/projects/#{@project.id}/flow"}
+              class={["st-sidebar-subitem", (@active_tab == :flow) && "active"]}
+            >
+              <i class="st-sidebar-item-icon fa-solid fa-diagram-project"></i>
+              <span class="st-sidebar-item-text">Flow Design</span>
+            </.link>
+            <.link
+              navigate={~p"/projects/#{@project.id}/builder"}
+              class={["st-sidebar-subitem", (@active_tab == :builder) && "active"]}
+            >
+              <i class="st-sidebar-item-icon fa-solid fa-cubes"></i>
+              <span class="st-sidebar-item-text">System Builder</span>
+            </.link>
+          <% end %>
+        </div>
+      </nav>
+      
+      <!-- Settings at bottom -->
+      <div class="st-sidebar-footer">
+        <.link
+          navigate="/users/settings"
+          class={["st-sidebar-item", (@active_tab == :settings) && "active"]}
+        >
+          <i class="st-sidebar-item-icon fa-solid fa-gear"></i>
+          <span class="st-sidebar-item-text">Settings</span>
+        </.link>
+      </div>
+    </aside>
+    """
+  end
+
   @doc """
   Renders flash notices.
 
@@ -638,6 +703,81 @@ defmodule TesseractStudioWeb.CoreComponents do
         </div>
       </div>
     </div>
+    """
+  end
+
+  @doc """
+  Renders a standardized delete confirmation modal with premium "danger" styling.
+  """
+  attr :id, :string, required: true
+  attr :show, :boolean, default: false
+  attr :title, :string, default: "Are you sure?"
+  attr :message, :string, required: true
+  attr :item_name, :string, required: true
+  attr :confirm_label, :string, default: "Delete"
+  attr :on_cancel, :any, default: %JS{}
+  attr :on_confirm, :any, required: true
+
+  def delete_confirmation_modal(assigns) do
+    ~H"""
+    <.modal
+      id={@id}
+      show={@show}
+      on_cancel={@on_cancel}
+      variant={:danger}
+    >
+      <:title>{@title}</:title>
+      <div class="mb-8 mt-4" style="margin-top: 2rem; margin-bottom: 2rem; padding: 0;">
+        <div
+          class="flex items-center gap-5 border-y border-red-500/20 bg-red-500/5 backdrop-blur-md"
+          style="margin: 0 -40px 1.5rem -40px; padding: 1.5rem 40px; gap: 1.25rem; border-left: none; border-right: none;"
+        >
+          <div
+            class="flex items-center justify-center shrink-0"
+            style="width: 4rem; height: 4rem;"
+          >
+            <i
+              class="fa-solid fa-triangle-exclamation text-red-500"
+              style="font-size: 3rem; filter: drop-shadow(0 0 10px rgba(239, 68, 68, 0.5));"
+            >
+            </i>
+          </div>
+          <div>
+            <p
+              class="text-white font-bold text-lg mb-1 tracking-tight uppercase"
+              style="margin-bottom: 0.25rem; font-size: 1.125rem;"
+            >
+              {@title}
+            </p>
+            <p class="text-slate-300 text-sm">
+              You are about to delete <span class="text-white font-bold">{@item_name}</span>.
+            </p>
+          </div>
+        </div>
+        <p
+          class="text-slate-400 text-sm leading-relaxed px-1"
+          style="padding-left: 0.25rem; padding-right: 0.25rem; line-height: 1.6;"
+        >
+          {@message}
+        </p>
+      </div>
+      <div class="flex justify-end gap-3">
+        <button
+          class="st-btn rounded-full border border-white/10 bg-white/5 hover:bg-white/10 backdrop-blur-md text-slate-300 hover:text-white transition-all shadow-none hover:shadow-none !important"
+          style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: none !important;"
+          phx-click={@on_cancel}
+        >
+          Cancel
+        </button>
+        <button
+          class="st-btn rounded-full border border-red-500/20 bg-red-500/10 hover:bg-red-500/20 backdrop-blur-md text-red-400 hover:text-red-300 transition-all shadow-none hover:shadow-none !important"
+          style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); box-shadow: none !important;"
+          phx-click={@on_confirm}
+        >
+          <i class="fa-solid fa-trash mr-2"></i> {@confirm_label}
+        </button>
+      </div>
+    </.modal>
     """
   end
 

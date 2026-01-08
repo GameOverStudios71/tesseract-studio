@@ -32,7 +32,7 @@ const ReactFlowHook = {
                     this.pushEvent('add_page', node);
                 },
                 onNodeDelete: (nodeId) => {
-                    this.pushEvent('delete_page', { node_id: nodeId });
+                    this.pushEvent('request_delete_page', { node_id: nodeId });
                 },
                 onNodeMove: (nodeId, x, y) => {
                     this.pushEvent('move_page', { node_id: nodeId, x: x, y: y });

@@ -190,6 +190,76 @@ defmodule TesseractStudio.Studio do
   end
 
   # ============================================================================
+  # Flows
+  # ============================================================================
+
+  alias TesseractStudio.Studio.Flow
+
+  @doc """
+  Returns the list of flows for a project.
+  """
+  def list_flows(project_id) do
+    Flow
+    |> where([f], f.project_id == ^project_id)
+    |> order_by([f], asc: f.inserted_at)
+    |> Repo.all()
+  end
+
+  @doc """
+  Gets a single flow.
+  """
+  def get_flow!(id), do: Repo.get!(Flow, id)
+
+  @doc """
+  Gets a flow by project and node_id.
+  """
+  def get_flow_by_node_id(project_id, node_id) do
+    Repo.get_by(Flow, project_id: project_id, node_id: node_id)
+  end
+
+  @doc """
+  Creates a flow.
+  """
+  def create_flow(project, attrs \\ %{}) do
+    %Flow{}
+    |> Flow.changeset(Map.put(attrs, "project_id", project.id))
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a flow position.
+  """
+  def update_flow_position(%Flow{} = flow, x, y) do
+    flow
+    |> Flow.position_changeset(%{position_x: x, position_y: y})
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a flow.
+  """
+  def delete_flow(%Flow{} = flow) do
+    Repo.delete(flow)
+  end
+
+  @doc """
+  Deletes a flow by node_id.
+  """
+  def delete_flow_by_node_id(project_id, node_id) do
+    case get_flow_by_node_id(project_id, node_id) do
+      nil -> {:error, :not_found}
+      flow -> delete_flow(flow)
+    end
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking flow changes.
+  """
+  def change_flow(%Flow{} = flow, attrs \\ %{}) do
+    Flow.changeset(flow, attrs)
+  end
+
+  # ============================================================================
   # Edges
   # ============================================================================
 
@@ -247,12 +317,15 @@ defmodule TesseractStudio.Studio do
   @doc """
   Gets all flow data for React Flow component.
   Returns nodes and edges in the format expected by React Flow.
+  Optionally filters by type :page or :flow, default :all.
   """
-  def get_flow_data(project_id) do
-    pages = list_pages(project_id)
-    edges = list_edges(project_id)
+  def get_flow_data(project_id, type \\ :all) do
+    pages = if type in [:all, :page], do: list_pages(project_id), else: []
+    flows = if type in [:all, :flow], do: list_flows(project_id), else: []
+    # Shared edges for now, though eventually flows might need their own edges table
+    edges = list_edges(project_id) 
 
-    nodes =
+    page_nodes =
       Enum.map(pages, fn page ->
         %{
           id: page.node_id,
@@ -261,21 +334,44 @@ defmodule TesseractStudio.Studio do
           data: %{
             label: page.name,
             slug: page.slug,
-            page_id: page.id
+            page_id: page.id,
+            is_root: page.slug in ["/", "home"]
+          }
+        }
+      end)
+
+    flow_nodes =
+      Enum.map(flows, fn flow ->
+        %{
+          id: flow.node_id,
+          type: "flow", # Custom node type for frontend
+          position: %{x: flow.position_x, y: flow.position_y},
+          data: %{
+            label: flow.name,
+            flow_id: flow.id
           }
         }
       end)
 
     edges_data =
       Enum.map(edges, fn edge ->
+        # Ideally we check if source/target exist, but for now assuming integrity
         %{
           id: edge.edge_id,
-          source: get_page!(edge.source_page_id).node_id,
-          target: get_page!(edge.target_page_id).node_id,
+          source: get_node_id_from_edge(edge.source_page_id),
+          target: get_node_id_from_edge(edge.target_page_id),
           label: edge.label
         }
       end)
 
-    %{nodes: nodes, edges: edges_data}
+    %{nodes: page_nodes ++ flow_nodes, edges: edges_data}
+  end
+
+  # Helper to resolve node_id from internal IDs - simple version for now
+  # In a real scenario, edges would probably be polymorphic or separate tables
+  defp get_node_id_from_edge(page_id) do
+    # This is legacy edge support for Pages only currently
+    # Flow edges would need separate logic
+    Repo.get!(Page, page_id).node_id
   end
 end

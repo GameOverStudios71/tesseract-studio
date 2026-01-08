@@ -10,6 +10,7 @@ defmodule TesseractStudioWeb.ProjectLive.Index do
 
     {:ok,
      socket
+     |> assign(:active_tab, :projects)
      |> assign(:projects, projects)
      |> assign(:page_title, "My Projects")
      |> assign(:header_title, "My Projects")

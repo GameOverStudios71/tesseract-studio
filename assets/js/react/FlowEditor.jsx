@@ -72,8 +72,49 @@ function PageNode({ id, data, selected }) {
   );
 }
 
+// Custom Flow Node component (reuses page node styles for acrylic look)
+function FlowNode({ id, data, selected }) {
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    if (data.onDelete) {
+      data.onDelete(id, data.label);
+    }
+  };
+
+  return (
+    <div className={`ts-page-node ${selected ? 'selected' : ''}`}>
+      <Handle type="target" position={Position.Left} />
+      <div className="ts-page-node-header">
+        <span className="ts-page-node-icon">
+          <i className="fa-solid fa-diagram-project"></i>
+        </span>
+        <span className="ts-page-node-label">{data.label}</span>
+
+        <button
+          className="ml-auto mr-1 w-5 h-5 rounded-full bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"
+          onClick={handleDelete}
+          title="Delete Node"
+        >
+          <i className="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+      <div className="ts-page-node-body">
+        <div className="text-[10px] text-slate-400 px-1">Flow Logic</div>
+      </div>
+
+      <style>{`
+        .ts-page-node:hover .opacity-0 {
+          opacity: 1;
+        }
+      `}</style>
+      <Handle type="source" position={Position.Right} />
+    </div>
+  );
+}
+
 const nodeTypes = {
   page: PageNode,
+  flow: FlowNode,
 };
 
 export default function FlowEditor({
@@ -86,14 +127,13 @@ export default function FlowEditor({
   onEdgeDelete,
   projectSlug
 }) {
-  // Handle node delete with confirmation
+  // Handle node delete request (opens server modal)
   const handleNodeDelete = useCallback((nodeId, nodeLabel) => {
-    const isConfirmed = window.confirm(`Are you sure you want to delete the page "${nodeLabel}"? This cannot be undone.`);
-
-    if (isConfirmed && onNodeDelete) {
-      onNodeDelete(nodeId);
-      // We also need to update local state to remove immediately for better UX
-      setNodes((nds) => nds.filter((node) => node.id !== nodeId));
+    // Instead of window.confirm, we ask the server to show the modal
+    if (onNodeDelete) {
+      onNodeDelete(nodeId, nodeLabel);
+      // We DO NOT remove from local state immediately anymore.
+      // We wait for the server to confirm deletion and push 'update_flow'.
     }
   }, [onNodeDelete]);
 
@@ -151,27 +191,16 @@ export default function FlowEditor({
     [onNodeMove]
   );
 
-  // Handle node delete (from Backspace key or other sources)
+  // Handle node delete (from Backspace key)
   const onNodesDelete = useCallback(
     (deletedNodes) => {
       deletedNodes.forEach((node) => {
-        // Prevent deleting home 'root' node if it somehow gets selected
+        // Prevent deleting home 'root' node
         if (node.data.slug === 'home' || node.data.slug === '/') return;
 
         if (onNodeDelete) {
-          // For keyboard deletion, we might skip confirm or add it here too.
-          // Usually keyboard delete expects immediate action or distinct confirm.
-          // Let's assume keyboard delete needs confirm too for safety?
-          // The user specifically asked for an ICON with popup.
-          // But let's be safe.
-          const isConfirmed = window.confirm(`Delete page "${node.data.label}"?`);
-          if (isConfirmed) {
-            onNodeDelete(node.id);
-          } else {
-            // If cancelled, we should probably restore the node? 
-            // ReactFlow optimistically deletes on onNodesDelete. 
-            // This is tricky. Let's rely on the Icon button primarily as requested.
-          }
+          // Calls the same handler which now triggers the server modal
+          onNodeDelete(node.id, node.data.label);
         }
       });
     },
