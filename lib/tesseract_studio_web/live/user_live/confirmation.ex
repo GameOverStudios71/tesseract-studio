@@ -7,66 +7,90 @@ defmodule TesseractStudioWeb.UserLive.Confirmation do
   def render(assigns) do
     ~H"""
     <Layouts.app flash={@flash} current_scope={@current_scope}>
-      <div class="mx-auto max-w-sm">
-        <div class="text-center">
-          <.header>Welcome {@user.email}</.header>
-        </div>
+      <div class="flex min-h-[80vh] items-center justify-center">
+        <div class="glass-panel w-full max-w-sm !p-10 rounded-2xl !space-y-6 border border-white/5 bg-white/5 shadow-2xl relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent opacity-50">
+          </div>
 
-        <.form
-          :if={!@user.confirmed_at}
-          for={@form}
-          id="confirmation_form"
-          phx-mounted={JS.focus_first()}
-          phx-submit="submit"
-          action={~p"/users/log-in?_action=confirmed"}
-          phx-trigger-action={@trigger_submit}
-        >
-          <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
-          <.button
-            name={@form[:remember_me].name}
-            value="true"
-            phx-disable-with="Confirming..."
-            class="btn btn-primary w-full"
-          >
-            Confirm and stay logged in
-          </.button>
-          <.button phx-disable-with="Confirming..." class="btn btn-primary btn-soft w-full mt-2">
-            Confirm and log in only this time
-          </.button>
-        </.form>
+          <div class="text-center">
+            <.header class="text-left">
+              <span class="text-xl font-bold text-white">Welcome {@user.email}</span>
+            </.header>
+          </div>
 
-        <.form
-          :if={@user.confirmed_at}
-          for={@form}
-          id="login_form"
-          phx-submit="submit"
-          phx-mounted={JS.focus_first()}
-          action={~p"/users/log-in"}
-          phx-trigger-action={@trigger_submit}
-        >
-          <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
-          <%= if @current_scope do %>
-            <.button phx-disable-with="Logging in..." class="btn btn-primary w-full">
-              Log in
-            </.button>
-          <% else %>
-            <.button
-              name={@form[:remember_me].name}
-              value="true"
-              phx-disable-with="Logging in..."
-              class="btn btn-primary w-full"
+          <div class="space-y-4">
+            <.form
+              :if={!@user.confirmed_at}
+              for={@form}
+              id="confirmation_form"
+              phx-mounted={JS.focus_first()}
+              phx-submit="submit"
+              action={~p"/users/log-in?_action=confirmed"}
+              phx-trigger-action={@trigger_submit}
+              class="space-y-4"
             >
-              Keep me logged in on this device
-            </.button>
-            <.button phx-disable-with="Logging in..." class="btn btn-primary btn-soft w-full mt-2">
-              Log me in only this time
-            </.button>
-          <% end %>
-        </.form>
+              <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
+              <.button
+                name={@form[:remember_me].name}
+                value="true"
+                phx-disable-with="Confirming..."
+                class="st-btn w-full !bg-none !bg-cyan-600/10 hover:!bg-cyan-600/20 border-cyan-500/50 text-cyan-100 shadow-none hover:!shadow-[0_6px_12px_rgba(6,182,212,0.3)] rounded-none backdrop-blur-md"
+              >
+                Confirm and stay logged in
+              </.button>
+              <.button
+                phx-disable-with="Confirming..."
+                class="btn btn-ghost w-full text-white hover:text-white hover:bg-white/5 rounded-none"
+              >
+                Confirm and log in only this time
+              </.button>
+            </.form>
 
-        <p :if={!@user.confirmed_at} class="alert alert-outline mt-8">
-          Tip: If you prefer passwords, you can enable them in the user settings.
-        </p>
+            <.form
+              :if={@user.confirmed_at}
+              for={@form}
+              id="login_form"
+              phx-submit="submit"
+              phx-mounted={JS.focus_first()}
+              action={~p"/users/log-in"}
+              phx-trigger-action={@trigger_submit}
+              class="space-y-4"
+            >
+              <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
+              <%= if @current_scope do %>
+                <.button
+                  phx-disable-with="Logging in..."
+                  class="st-btn w-full !bg-none !bg-cyan-600/10 hover:!bg-cyan-600/20 border-cyan-500/50 text-cyan-100 shadow-none hover:!shadow-[0_6px_12px_rgba(6,182,212,0.3)] rounded-none backdrop-blur-md"
+                >
+                  Log in
+                </.button>
+              <% else %>
+                <.button
+                  name={@form[:remember_me].name}
+                  value="true"
+                  phx-disable-with="Logging in..."
+                  class="st-btn w-full !bg-none !bg-cyan-600/10 hover:!bg-cyan-600/20 border-cyan-500/50 text-cyan-100 shadow-none hover:!shadow-[0_6px_12px_rgba(6,182,212,0.3)] rounded-none backdrop-blur-md"
+                >
+                  Keep me logged in on this device
+                </.button>
+                <.button
+                  phx-disable-with="Logging in..."
+                  class="btn btn-ghost w-full text-white hover:text-white hover:bg-white/5 rounded-none"
+                >
+                  Log me in only this time
+                </.button>
+              <% end %>
+            </.form>
+
+            <p
+              :if={!@user.confirmed_at}
+              class="flex items-center justify-center gap-3 p-5 bg-white/5 border border-white/20 backdrop-blur-md text-sm text-white rounded-none"
+            >
+              <i class="fa-solid fa-lightbulb text-yellow-500/80"></i>
+              Tip: If you prefer passwords, you can enable them in the user settings.
+            </p>
+          </div>
+        </div>
       </div>
     </Layouts.app>
     """

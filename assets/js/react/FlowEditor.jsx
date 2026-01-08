@@ -16,26 +16,32 @@ import {
 function PageNode({ data, selected }) {
   const projectSlug = data.projectSlug || 'project';
   const pageUrl = `/p/${projectSlug}/${data.slug}`;
+  const isHome = data.slug === 'home';
 
   return (
     <div className={`ts-page-node ${selected ? 'selected' : ''}`}>
       <Handle type="target" position={Position.Left} />
       <div className="ts-page-node-header">
-        <span className="ts-page-node-icon">📄</span>
+        <span className="ts-page-node-icon">
+          {isHome ? <i className="fa-solid fa-house"></i> : <i className="fa-solid fa-file"></i>}
+        </span>
         <span className="ts-page-node-label">{data.label}</span>
+        {isHome && <span className="text-[10px] text-cyan-400 bg-cyan-400/10 px-1 rounded ml-2">HOME</span>}
+      </div>
+      <div className="ts-page-node-body">
         <a
           href={pageUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="ts-page-node-link"
-          title="Open in new tab"
-          onClick={(e) => e.stopPropagation()} // Prevent node selection when clicking link
+          className="ts-page-node-slug hover:text-cyan-400 transition-colors"
+          title="Open page"
+          onClick={(e) => e.stopPropagation()}
         >
-          ↗
+          /{data.slug} <i className="fa-solid fa-external-link ml-1 text-[8px]"></i>
         </a>
       </div>
-      <div className="ts-page-node-body">
-        <span className="ts-page-node-slug">/{data.slug}</span>
+      <div className="ts-page-node-actions" style={{ position: 'absolute', top: '8px', right: '8px' }}>
+        {/* Actions could go here */}
       </div>
       <Handle type="source" position={Position.Right} />
     </div>
@@ -169,34 +175,39 @@ export default function FlowEditor({
         onEdgesDelete={onEdgesDelete}
         nodeTypes={nodeTypes}
         fitView
+        fitViewOptions={{ maxZoom: 1 }}
         proOptions={{ hideAttribution: true }}
         defaultEdgeOptions={{
           type: 'smoothstep',
           animated: true,
+          style: { stroke: '#334155', strokeWidth: 2 },
         }}
       >
         <Controls />
-        <MiniMap
-          nodeColor={() => '#3b82f6'}
-          maskColor="rgba(0, 0, 0, 0.8)"
-        />
-        <Background variant="dots" gap={20} size={1} color="#334155" />
+        <MiniMap />
+        <Background variant="dots" gap={20} size={1} color="rgba(255,255,255, 0.1)" />
 
         <Panel position="top-left" className="ts-flow-panel">
           <div className="ts-flow-panel-header">
-            <h2>🧊 Tesseract Studio</h2>
-            {projectSlug && <span className="project-slug">/{projectSlug}</span>}
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-6 h-6 rounded bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-sm">
+                <i className="fa-solid fa-cubes text-cyan-400 text-[10px]"></i>
+              </div>
+              <h2 className="text-sm font-bold text-white m-0">Studio</h2>
+            </div>
+            {projectSlug && <div className="st-badge st-badge-cyan text-xs font-mono">/{projectSlug}</div>}
           </div>
           <div className="ts-flow-panel-actions">
-            <button onClick={addNewPage} className="ts-btn-primary ts-btn-sm">
-              <span>📄</span> Add Page
+            <button onClick={addNewPage} className="st-btn st-btn-premium st-btn-small w-full justify-center">
+              <i className="fa-solid fa-plus"></i> Add Page
             </button>
           </div>
         </Panel>
 
         <Panel position="bottom-left" className="ts-flow-info">
-          <span>Pages: {nodes.length}</span>
-          <span>Connections: {edges.length}</span>
+          <span className="flex items-center gap-2"><i className="fa-regular fa-file"></i> {nodes.length} Pages</span>
+          <span className="w-px h-3 bg-white/10 mx-2"></span>
+          <span className="flex items-center gap-2"><i className="fa-solid fa-diagram-project"></i> {edges.length} Connections</span>
         </Panel>
       </ReactFlow>
     </div>

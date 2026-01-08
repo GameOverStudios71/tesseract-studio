@@ -46,9 +46,28 @@ defmodule TesseractStudio.Studio do
   Creates a project.
   """
   def create_project(user, attrs \\ %{}) do
-    %Project{}
-    |> Project.changeset(Map.put(attrs, "user_id", user.id))
-    |> Repo.insert()
+    result =
+      %Project{}
+      |> Project.changeset(Map.put(attrs, "user_id", user.id))
+      |> Repo.insert()
+
+    case result do
+      {:ok, project} ->
+        # Create default Home page
+        create_page(project, %{
+          "name" => "Home",
+          "slug" => "home",
+          "node_id" => "node-home-#{Ecto.UUID.generate()}",
+          "position_x" => 250,
+          "position_y" => 250,
+          "content" => %{"type" => "doc", "content" => []}
+        })
+
+        {:ok, project}
+
+      error ->
+        error
+    end
   end
 
   @doc """
@@ -156,6 +175,8 @@ defmodule TesseractStudio.Studio do
   def delete_page_by_node_id(project_id, node_id) do
     case get_page_by_node_id(project_id, node_id) do
       nil -> {:error, :not_found}
+      # Prevent deleting home page
+      %Page{slug: "home"} -> {:error, :forbidden}
       page -> delete_page(page)
     end
   end

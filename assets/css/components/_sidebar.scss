@@ -17,6 +17,7 @@
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0; // No rounded corners
     z-index: 40;
     transition: width var(--st-transition-normal);
     display: flex;
@@ -175,7 +176,7 @@
     align-items: center;
     gap: var(--st-spacing-md);
     padding: var(--st-spacing-xs) var(--st-spacing-md);
-    padding-left: calc(var(--st-spacing-md) + 12px);
+    padding-left: var(--st-spacing-xl);
     border-radius: var(--st-radius-md);
     color: rgba(255, 255, 255, 0.5);
     text-decoration: none;
@@ -184,19 +185,19 @@
     margin-bottom: 2px;
     min-height: 32px;
     font-size: 0.8rem;
-    border-left: 2px solid rgba(255, 255, 255, 0.1);
-    margin-left: var(--st-spacing-md);
+    // border-left: 2px solid rgba(255, 255, 255, 0.1); // Removed
+    margin-left: var(--st-spacing-sm);
 
     &:hover {
         background: rgba(255, 255, 255, 0.05);
         color: white;
-        border-left-color: rgba(6, 182, 212, 0.5);
+        // border-left-color: rgba(6, 182, 212, 0.5); // Removed
     }
 
     &.active {
         background: rgba(6, 182, 212, 0.1);
         color: #22d3ee;
-        border-left-color: #22d3ee;
+        // border-left-color: #22d3ee; // Removed
     }
 
     .st-sidebar-item-icon {

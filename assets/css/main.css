@@ -13,7 +13,7 @@ html {
 }
 
 body {
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Exo 2", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 1rem;
   line-height: 1.5;
   color: #e2e8f0;
@@ -396,7 +396,7 @@ body::-webkit-scrollbar-thumb:hover {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.5rem;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Exo 2", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -435,7 +435,7 @@ body::-webkit-scrollbar-thumb:hover {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.5rem;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Exo 2", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -470,7 +470,7 @@ body::-webkit-scrollbar-thumb:hover {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.5rem;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Exo 2", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -505,7 +505,7 @@ body::-webkit-scrollbar-thumb:hover {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.5rem;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Exo 2", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -541,7 +541,7 @@ body::-webkit-scrollbar-thumb:hover {
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.5rem;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Exo 2", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -732,6 +732,7 @@ body::-webkit-scrollbar-thumb:hover {
   color: rgba(255, 255, 255, 0.4);
   cursor: pointer;
   transition: all var(--st-transition-fast);
+  margin-top: var(--st-spacing-lg);
 }
 .st-btn-icon-delete:hover {
   background: rgba(239, 68, 68, 0.2);
@@ -923,15 +924,15 @@ body::-webkit-scrollbar-thumb:hover {
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(30, 58, 95, 0.7), transparent);
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.8), transparent);
   opacity: 0;
   transition: opacity var(--st-transition-fast);
 }
 .st-project-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(30, 58, 95, 0.6);
-  box-shadow: var(--st-shadow-xl), 0 0 30px rgba(30, 58, 95, 0.25);
+  border-color: rgba(6, 182, 212, 0.4);
+  box-shadow: var(--st-shadow-xl), 0 0 40px rgba(6, 182, 212, 0.2), 0 0 80px rgba(6, 182, 212, 0.1);
 }
 .st-project-card:hover::before {
   opacity: 1;
@@ -1114,6 +1115,7 @@ body::-webkit-scrollbar-thumb:hover {
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0;
   z-index: 40;
   transition: width var(--st-transition-normal);
   display: flex;
@@ -1251,7 +1253,7 @@ body::-webkit-scrollbar-thumb:hover {
   align-items: center;
   gap: var(--st-spacing-md);
   padding: var(--st-spacing-xs) var(--st-spacing-md);
-  padding-left: calc(var(--st-spacing-md) + 12px);
+  padding-left: var(--st-spacing-xl);
   border-radius: var(--st-radius-md);
   color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
@@ -1260,18 +1262,15 @@ body::-webkit-scrollbar-thumb:hover {
   margin-bottom: 2px;
   min-height: 32px;
   font-size: 0.8rem;
-  border-left: 2px solid rgba(255, 255, 255, 0.1);
-  margin-left: var(--st-spacing-md);
+  margin-left: var(--st-spacing-sm);
 }
 .st-sidebar-subitem:hover {
   background: rgba(255, 255, 255, 0.05);
   color: white;
-  border-left-color: rgba(6, 182, 212, 0.5);
 }
 .st-sidebar-subitem.active {
   background: rgba(6, 182, 212, 0.1);
   color: #22d3ee;
-  border-left-color: #22d3ee;
 }
 .st-sidebar-subitem .st-sidebar-item-icon {
   width: 16px;
@@ -1341,7 +1340,7 @@ body::-webkit-scrollbar-thumb:hover {
   border: 1px solid #334155;
   border-radius: 0.5rem;
   color: #e2e8f0;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Exo 2", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 1rem;
   transition-property: border-color, box-shadow;
   transition-duration: 0.2s;
@@ -1367,7 +1366,7 @@ body::-webkit-scrollbar-thumb:hover {
   border: 1px solid #334155;
   border-radius: 0.5rem;
   color: #e2e8f0;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Exo 2", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 1rem;
   transition-property: border-color, box-shadow;
   transition-duration: 0.2s;
@@ -1397,7 +1396,7 @@ body::-webkit-scrollbar-thumb:hover {
   border: 1px solid #334155;
   border-radius: 0.5rem;
   color: #e2e8f0;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Exo 2", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 1rem;
   transition-property: border-color, box-shadow;
   transition-duration: 0.2s;
@@ -1464,7 +1463,7 @@ body::-webkit-scrollbar-thumb:hover {
   border-radius: 0;
   box-shadow: none;
   overflow: hidden;
-  font-family: "Inter", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: "Inter", "Exo 2", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: #e2e8f0;
   line-height: 1.6;
 }
@@ -1683,65 +1682,11 @@ body::-webkit-scrollbar-thumb:hover {
 .ts-builder-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  background: #1c1c1d;
+  height: calc(100vh - 100px);
+  width: 100%;
+  background: transparent;
   overflow: hidden;
-}
-
-.ts-builder-topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.75rem 1.5rem;
-  background: #1e293b;
-  border-bottom: 1px solid #334155;
-  flex-shrink: 0;
-  z-index: 50;
-}
-@media (max-width: 639px) {
-  .ts-builder-topbar {
-    padding: 0.75rem 1rem;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-}
-
-.ts-builder-back-link {
-  color: #94a3b8;
-  font-size: 0.875rem;
-  transition-property: color;
-  transition-duration: 0.2s;
-  transition-timing-function: ease;
-}
-.ts-builder-back-link:hover {
-  color: #e2e8f0;
-}
-
-.ts-builder-project-info {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-@media (max-width: 639px) {
-  .ts-builder-project-info {
-    order: -1;
-    width: 100%;
-    justify-content: center;
-  }
-}
-.ts-builder-project-info .project-name {
-  font-weight: 600;
-  color: #ffffff;
-}
-.ts-builder-project-info .project-slug {
-  font-size: 0.75rem;
-  font-family: "JetBrains Mono", "Fira Code", monospace;
-  color: #64748b;
-}
-
-.ts-builder-actions {
-  display: flex;
-  gap: 1rem;
+  position: relative;
 }
 
 .ts-flow-container {
@@ -1753,107 +1698,157 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .react-flow {
-  background: #1c1c1d !important;
+  background: transparent !important;
 }
 
 .react-flow__controls {
-  background: #1e293b;
-  border: 1px solid #334155;
-  border-radius: 0.5rem;
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--st-radius-md);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--st-shadow-lg);
+  overflow: hidden;
 }
 .react-flow__controls button {
-  background: #1e293b;
-  border-bottom: 1px solid #334155;
-  color: #e2e8f0;
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  width: 30px;
+  height: 30px;
 }
 .react-flow__controls button:hover {
-  background: #334155;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 .react-flow__controls button:last-child {
   border-bottom: none;
 }
+.react-flow__controls button svg {
+  fill: currentColor;
+}
 
 .react-flow__minimap {
-  background: #1e293b;
-  border: 1px solid #334155;
-  border-radius: 0.5rem;
+  background: rgba(15, 23, 42, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: var(--st-radius-lg) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: var(--st-shadow-lg) !important;
+  margin-bottom: var(--st-spacing-md) !important;
+  margin-right: var(--st-spacing-md) !important;
+}
+.react-flow__minimap .react-flow__minimap-mask {
+  fill: rgba(0, 0, 0, 0.4) !important;
+}
+.react-flow__minimap .react-flow__minimap-node {
+  fill: rgba(6, 182, 212, 0.4) !important;
+  stroke: none !important;
 }
 
 .ts-flow-panel {
-  background: #1e293b;
-  border: 1px solid #334155;
-  border-radius: 0.75rem;
-  padding: 1rem;
-  color: #e2e8f0;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--st-radius-lg);
+  padding: var(--st-spacing-lg);
+  color: white;
   z-index: 10;
+  backdrop-filter: blur(12px);
+  box-shadow: var(--st-shadow-xl);
 }
 .ts-flow-panel-header {
-  margin-bottom: 1rem;
+  margin-bottom: var(--st-spacing-md);
 }
 .ts-flow-panel-header h2 {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-weight: 700;
   margin: 0 0 0.25rem;
+  color: white;
 }
 .ts-flow-panel-header .project-slug {
   font-size: 0.75rem;
-  font-family: "JetBrains Mono", "Fira Code", monospace;
-  color: #64748b;
+  font-family: "JetBrains Mono", monospace;
+  color: var(--st-color-cyan);
 }
 .ts-flow-panel-actions {
-  margin-top: 0.75rem;
+  margin-top: var(--st-spacing-md);
 }
 
 .ts-flow-info {
   display: flex;
-  gap: 1rem;
-  background: rgba(30, 41, 59, 0.9);
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
+  gap: var(--st-spacing-md);
+  background: rgba(15, 23, 42, 0.6);
+  padding: var(--st-spacing-sm) var(--st-spacing-md);
+  border-radius: var(--st-radius-md);
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(8px);
   z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .ts-page-node {
-  background: #1e293b;
-  border: 2px solid #3b82f6;
-  border-radius: 0.75rem;
-  min-width: 180px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  transition-property: transform, box-shadow, border-color;
-  transition-duration: 0.2s;
-  transition-timing-function: ease;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: var(--st-radius-lg);
+  min-width: 200px;
+  box-shadow: var(--st-shadow-lg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all var(--st-transition-fast);
+  overflow: hidden;
+}
+.ts-page-node:hover {
+  border-color: rgba(6, 182, 212, 0.6);
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.2), var(--st-shadow-xl);
+  transform: translateY(-2px);
 }
 .ts-page-node.selected {
-  border-color: #60a5fa;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3), 0 10px 25px rgba(0, 0, 0, 0.4);
+  border-color: #22d3ee;
+  box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.3), 0 0 30px rgba(6, 182, 212, 0.3);
 }
 .ts-page-node-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1rem;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, transparent 100%);
-  border-radius: calc(0.75rem - 2px) calc(0.75rem - 2px) 0 0;
-  border-bottom: 1px solid #334155;
+  gap: var(--st-spacing-sm);
+  padding: var(--st-spacing-sm) var(--st-spacing-md);
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2) 0%, rgba(6, 182, 212, 0.05) 100%);
+  border-bottom: 1px solid rgba(6, 182, 212, 0.1);
 }
 .ts-page-node-icon {
-  font-size: 1.125rem;
+  font-size: 1rem;
+  color: #22d3ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background: rgba(6, 182, 212, 0.1);
+  border-radius: var(--st-radius-md);
 }
 .ts-page-node-label {
   font-weight: 600;
-  color: #ffffff;
+  color: white;
   font-size: 0.875rem;
+  flex: 1;
+}
+.ts-page-node-actions {
+  display: flex;
+  gap: 4px;
 }
 .ts-page-node-body {
-  padding: 0.5rem 1rem 0.75rem;
+  padding: var(--st-spacing-md);
+  background: rgba(0, 0, 0, 0.2);
 }
 .ts-page-node-slug {
   font-size: 0.75rem;
-  font-family: "JetBrains Mono", "Fira Code", monospace;
-  color: #64748b;
+  font-family: "JetBrains Mono", monospace;
+  color: rgba(255, 255, 255, 0.5);
+  display: block;
+  margin-bottom: 4px;
+}
+.ts-page-node-slug::before {
+  content: "/";
+  color: rgba(6, 182, 212, 0.5);
 }
 
 .ts-page-container {

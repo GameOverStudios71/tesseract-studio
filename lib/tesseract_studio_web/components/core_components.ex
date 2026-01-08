@@ -56,23 +56,38 @@ defmodule TesseractStudioWeb.CoreComponents do
       id={@id}
       phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
       role="alert"
-      class="toast toast-top toast-end z-50"
+      class="toast toast-bottom toast-end z-50 mb-6 mr-6"
       {@rest}
     >
       <div class={[
-        "alert w-80 sm:w-96 max-w-80 sm:max-w-96 text-wrap",
-        @kind == :info && "alert-info",
-        @kind == :error && "alert-error"
+        "w-96 max-w-full overflow-hidden rounded-none shadow-2xl backdrop-blur-xl border p-5 flex items-center justify-center gap-3 transform transition-all duration-300 hover:scale-[1.02]",
+        @kind == :info &&
+          "bg-cyan-500/10 text-cyan-50 border-cyan-500 shadow-cyan-500/10",
+        @kind == :error && "bg-red-500/10 text-red-50 border-red-500 shadow-red-500/10"
       ]}>
-        <.icon :if={@kind == :info} name="hero-information-circle" class="size-5 shrink-0" />
-        <.icon :if={@kind == :error} name="hero-exclamation-circle" class="size-5 shrink-0" />
-        <div>
-          <p :if={@title} class="font-semibold">{@title}</p>
-          <p>{msg}</p>
+        <.icon
+          :if={@kind == :info}
+          name="hero-information-circle-solid"
+          class="size-6 shrink-0 text-cyan-400"
+        />
+        <.icon
+          :if={@kind == :error}
+          name="hero-exclamation-circle-solid"
+          class="size-6 shrink-0 text-red-500"
+        />
+        <div class="flex-1 min-w-0 text-center">
+          <p :if={@title} class="font-bold text-sm mb-1">{@title}</p>
+          <p class="text-sm font-medium leading-relaxed opacity-90">{msg}</p>
         </div>
-        <div class="flex-1" />
-        <button type="button" class="group self-start cursor-pointer" aria-label={gettext("close")}>
-          <.icon name="hero-x-mark" class="size-5 opacity-40 group-hover:opacity-70" />
+        <button
+          type="button"
+          class="group self-center cursor-pointer p-1"
+          aria-label={gettext("close")}
+        >
+          <.icon
+            name="hero-x-mark"
+            class="size-4 opacity-50 group-hover:opacity-100 transition-opacity"
+          />
         </button>
       </div>
     </div>
@@ -299,10 +314,12 @@ defmodule TesseractStudioWeb.CoreComponents do
   # Helper used by inputs to generate form errors
   defp error(assigns) do
     ~H"""
-    <p class="mt-1.5 flex gap-2 items-center text-sm text-error">
-      <.icon name="hero-exclamation-circle" class="size-5" />
-      {render_slot(@inner_block)}
-    </p>
+    <div class="mt-2 flex items-center justify-center gap-3 p-5 bg-red-500/10 border border-red-500 backdrop-blur-md rounded-none text-red-100 text-sm animate-pulse">
+      <.icon name="hero-exclamation-circle-mini" class="size-5 shrink-0 text-red-500" />
+      <span class="leading-relaxed">
+        {render_slot(@inner_block)}
+      </span>
+    </div>
     """
   end
 
@@ -547,11 +564,21 @@ defmodule TesseractStudioWeb.CoreComponents do
   attr :id, :string, required: true
   attr :show, :boolean, default: false
   attr :on_cancel, :any, default: %JS{}
+  attr :variant, :atom, values: [:default, :danger], default: :default
   slot :inner_block, required: true
   slot :title
   slot :actions
 
   def modal(assigns) do
+    assigns = assign_new(assigns, :variant, fn -> :default end)
+
+    border_color =
+      if assigns.variant == :danger,
+        do: "rgba(239, 68, 68, 0.3)",
+        else: "rgba(255, 255, 255, 0.08)"
+
+    assigns = assign(assigns, :border_color, border_color)
+
     ~H"""
     <div
       id={@id}
@@ -574,24 +601,37 @@ defmodule TesseractStudioWeb.CoreComponents do
         tabindex="0"
       >
         <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
-          <div class="glass-panel-heavy w-full max-w-lg transform overflow-hidden rounded-2xl p-6 text-left align-middle transition-all">
-            <div class="flex justify-between items-start mb-4">
-              <h3 :if={@title != []} id={"#{@id}-title"} class="text-lg font-bold leading-6">
+          <div
+            class="glass-panel-heavy w-full max-w-lg transform overflow-hidden rounded-2xl text-left align-middle transition-all"
+            style={"padding: 40px; border-radius: 16px; background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(40px) saturate(150%); -webkit-backdrop-filter: blur(40px) saturate(150%); border: 1px solid #{@border_color}; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);"}
+          >
+            <div class="mb-6" style="margin-bottom: 30px;">
+              <h3
+                :if={@title != []}
+                id={"#{@id}-title"}
+                class="text-lg font-bold leading-6"
+                style="font-size: 1.5rem; font-weight: 700; color: white;"
+              >
                 {render_slot(@title)}
               </h3>
-              <button
-                type="button"
-                class="btn btn-ghost btn-sm btn-circle absolute right-4 top-4"
-                phx-click={JS.exec("data-cancel", to: "##{@id}")}
-                aria-label={gettext("close")}
-              >
-                ✕
-              </button>
             </div>
+            <button
+              type="button"
+              class="btn btn-ghost btn-sm btn-circle absolute"
+              style="position: absolute; right: 32px; top: 32px;"
+              phx-click={JS.exec("data-cancel", to: "##{@id}")}
+              aria-label={gettext("close")}
+            >
+              ✕
+            </button>
             <div id={"#{@id}-content"}>
               {render_slot(@inner_block)}
             </div>
-            <div :if={@actions != []} class="mt-6 flex justify-end gap-2">
+            <div
+              :if={@actions != []}
+              class="mt-8 flex justify-end gap-4"
+              style="margin-top: 40px; display: flex; justify-content: flex-end; align-items: center; gap: 16px;"
+            >
               {render_slot(@actions)}
             </div>
           </div>

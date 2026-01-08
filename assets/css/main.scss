@@ -18,13 +18,11 @@
 // COMPONENTS - Reusable UI components
 // --------------------------------------------------------------------------
 @use 'components/buttons';
-@use 'components/buttons.sentinel' as sentinel-buttons;
-@use 'components/cards.sentinel' as sentinel-cards;
-@use 'components/badges.sentinel' as sentinel-badges;
-@use 'components/sidebar.sentinel' as sentinel-sidebar;
+@use 'components/cards';
+@use 'components/badges';
+@use 'components/sidebar';
 @use 'components/forms';
 // @use 'components/modal';
-// @use 'components/cards';
 @use 'components/editor';
 
 // --------------------------------------------------------------------------

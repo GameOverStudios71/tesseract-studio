@@ -9,59 +9,105 @@ defmodule TesseractStudioWeb.UserLive.Settings do
   def render(assigns) do
     ~H"""
     <Layouts.app flash={@flash} current_scope={@current_scope}>
-      <div class="text-center">
-        <.header>
-          Account Settings
-          <:subtitle>Manage your account email address and password settings</:subtitle>
-        </.header>
+      <div class="max-w-4xl mx-auto space-y-8">
+        <div class="text-center md:text-left">
+          <.header class="border-b border-white/10 pb-6">
+            <span class="text-2xl font-bold text-white">Account Settings</span>
+            <:subtitle>
+              <span class="text-white">
+                Manage your account email address and password settings
+              </span>
+            </:subtitle>
+          </.header>
+        </div>
+
+        <div class="glass-panel rounded-2xl !p-10 border border-white/5 bg-white/5 shadow-lg relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-cyan-500/50 to-transparent opacity-50">
+          </div>
+
+          <h3 class="text-lg font-bold text-white !mb-6 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center">
+              <i class="fa-solid fa-envelope text-cyan-400"></i>
+            </div>
+            Change Email
+          </h3>
+
+          <.form
+            for={@email_form}
+            id="email_form"
+            phx-submit="update_email"
+            phx-change="validate_email"
+            class="max-w-xl !space-y-6"
+          >
+            <.input
+              field={@email_form[:email]}
+              type="email"
+              label="Email"
+              autocomplete="username"
+              required
+              class="bg-black/20 border-white/10 focus:border-cyan-500/50 focus:ring-cyan-500/20 text-white placeholder-slate-600 rounded-none w-full !px-4 !py-3 !text-lg"
+            />
+            <.button
+              class="st-btn !bg-none !bg-cyan-600/10 hover:!bg-cyan-600/20 border-cyan-500/50 text-cyan-100 shadow-none hover:!shadow-[0_6px_12px_rgba(6,182,212,0.3)] rounded-none backdrop-blur-md"
+              phx-disable-with="Changing..."
+            >
+              Change Email
+            </.button>
+          </.form>
+        </div>
+
+        <div class="glass-panel rounded-2xl !p-10 border border-white/5 bg-white/5 shadow-lg relative overflow-hidden">
+          <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-purple-500/50 to-transparent opacity-50">
+          </div>
+
+          <h3 class="text-lg font-bold text-white !mb-6 flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center">
+              <i class="fa-solid fa-lock text-purple-400"></i>
+            </div>
+            Change Password
+          </h3>
+
+          <.form
+            for={@password_form}
+            id="password_form"
+            action={~p"/users/update-password"}
+            method="post"
+            phx-change="validate_password"
+            phx-submit="update_password"
+            phx-trigger-action={@trigger_submit}
+            class="max-w-xl !space-y-6"
+          >
+            <input
+              name={@password_form[:email].name}
+              type="hidden"
+              id="hidden_user_email"
+              autocomplete="username"
+              value={@current_email}
+            />
+            <.input
+              field={@password_form[:password]}
+              type="password"
+              label="New password"
+              autocomplete="new-password"
+              required
+              class="bg-black/20 border-white/10 focus:border-purple-500/50 focus:ring-purple-500/20 text-white placeholder-slate-600 rounded-none w-full !px-4 !py-3 !text-lg"
+            />
+            <.input
+              field={@password_form[:password_confirmation]}
+              type="password"
+              label="Confirm new password"
+              autocomplete="new-password"
+              class="bg-black/20 border-white/10 focus:border-purple-500/50 focus:ring-purple-500/20 text-white placeholder-slate-600 rounded-none w-full !px-4 !py-3 !text-lg"
+            />
+            <.button
+              class="st-btn !bg-none !bg-purple-600/10 hover:!bg-purple-600/20 border-purple-500/50 text-purple-100 shadow-none hover:!shadow-[0_6px_12px_rgba(147,51,234,0.3)] rounded-none backdrop-blur-md"
+              phx-disable-with="Saving..."
+            >
+              Save Password
+            </.button>
+          </.form>
+        </div>
       </div>
-
-      <.form for={@email_form} id="email_form" phx-submit="update_email" phx-change="validate_email">
-        <.input
-          field={@email_form[:email]}
-          type="email"
-          label="Email"
-          autocomplete="username"
-          required
-        />
-        <.button variant="primary" phx-disable-with="Changing...">Change Email</.button>
-      </.form>
-
-      <div class="divider" />
-
-      <.form
-        for={@password_form}
-        id="password_form"
-        action={~p"/users/update-password"}
-        method="post"
-        phx-change="validate_password"
-        phx-submit="update_password"
-        phx-trigger-action={@trigger_submit}
-      >
-        <input
-          name={@password_form[:email].name}
-          type="hidden"
-          id="hidden_user_email"
-          autocomplete="username"
-          value={@current_email}
-        />
-        <.input
-          field={@password_form[:password]}
-          type="password"
-          label="New password"
-          autocomplete="new-password"
-          required
-        />
-        <.input
-          field={@password_form[:password_confirmation]}
-          type="password"
-          label="Confirm new password"
-          autocomplete="new-password"
-        />
-        <.button variant="primary" phx-disable-with="Saving...">
-          Save Password
-        </.button>
-      </.form>
     </Layouts.app>
     """
   end

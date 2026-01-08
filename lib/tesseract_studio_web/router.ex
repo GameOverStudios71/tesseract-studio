@@ -20,7 +20,11 @@ defmodule TesseractStudioWeb.Router do
   scope "/", TesseractStudioWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live_session :home,
+      on_mount: [{TesseractStudioWeb.UserAuth, :mount_current_scope}],
+      layout: {TesseractStudioWeb.Layouts, :app} do
+      live "/", HomeLive, :index
+    end
   end
 
   pipeline :public_layout do

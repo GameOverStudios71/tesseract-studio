@@ -20,6 +20,9 @@ defmodule TesseractStudioWeb.BuilderLive do
        socket
        |> assign(:project, project)
        |> assign(:page_title, "#{project.name} - Builder")
+       |> assign(:header_title, project.name)
+       |> assign(:header_subtitle, "/#{project.slug}")
+       |> assign(:header_actions, header_actions(%{}))
        |> assign(:nodes, flow_data.nodes)
        |> assign(:edges, flow_data.edges)}
     end
@@ -131,26 +134,15 @@ defmodule TesseractStudioWeb.BuilderLive do
     end
   end
 
+  defp header_actions(assigns) do
+    ~H"""
+    """
+  end
+
   @impl true
   def render(assigns) do
     ~H"""
     <div class="ts-builder-wrapper">
-      <div class="ts-builder-topbar">
-        <.link navigate={~p"/projects"} class="ts-builder-back-link">
-          ← Back to Projects
-        </.link>
-        <div class="ts-builder-project-info">
-          <span class="project-name">{@project.name}</span>
-          <span class="project-slug">/{@project.slug}</span>
-        </div>
-        <div class="ts-builder-actions">
-          <!-- <.link href={~p"/p/#{@project.slug}"} target="_blank" class="ts-btn-secondary ts-btn-sm">
-            Preview Site →
-          </.link> -->
-          <button class="ts-btn-secondary ts-btn-sm" disabled>Preview (Coming Soon)</button>
-        </div>
-      </div>
-
       <div
         id="react-flow-container"
         phx-hook="ReactFlow"

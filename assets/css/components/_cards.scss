@@ -207,25 +207,26 @@
     cursor: pointer;
     transition: all var(--st-transition-fast);
 
-    // Hover glow effect (Navy Blue)
+    // Hover glow effect (Cyan luminescent)
     &::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(30, 58, 95, 0.7), transparent);
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.8), transparent);
         opacity: 0;
         transition: opacity var(--st-transition-fast);
     }
 
     &:hover {
         transform: translateY(-4px);
-        border-color: rgba(30, 58, 95, 0.6);
+        border-color: rgba(6, 182, 212, 0.4);
         box-shadow:
             var(--st-shadow-xl),
-            0 0 30px rgba(30, 58, 95, 0.25);
+            0 0 40px rgba(6, 182, 212, 0.2),
+            0 0 80px rgba(6, 182, 212, 0.1);
 
         &::before {
             opacity: 1;

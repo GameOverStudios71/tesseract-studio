@@ -1,20 +1,20 @@
 <!-- Reload Trigger -->
-<nav class="st-acrylic-strong top-0 fixed z-50 w-full border-b border-cyan-500/20">
+<nav class="st-acrylic-strong top-0 fixed z-50 w-full border-b border-cyan-500/20" style="border-left: none; border-right: none; border-top: none;">
   <div class="w-full h-16 flex items-center justify-between" style="padding-left: 20px; padding-right: 20px;">
     <!-- LOGO -->
     <div class="flex items-center gap-8">
       <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-white/90 hover:text-white transition-colors">
-        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center">
-          <span class="text-white text-sm font-black">T</span>
+        <div class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center backdrop-blur-sm">
+          <i class="fa-solid fa-cubes text-cyan-400 text-sm"></i>
         </div>
         Tesseract<span class="text-cyan-400">Studio</span>
       </a>
 
       <!-- DYNAMIC PAGE HEADER -->
       <%= if assigns[:header_title] do %>
-        <div class="hidden md:flex items-center gap-6 border-l border-cyan-500/20 pl-6 h-8" style="padding-left: 20px;;">
+        <div class="hidden md:flex items-center gap-6 border-l border-white/10 pl-6 h-8" style="padding-left: 20px;">
           <div>
-            <h1 class="text-lg font-bold text-white tracking-tight leading-none"><%= @header_title %></h1>
+            <h1 class="text-sm font-bold text-white tracking-tight leading-none"><%= @header_title %></h1>
             <%= if assigns[:header_subtitle] do %>
               <p class="text-cyan-400/70 text-[10px] leading-none mt-1 uppercase tracking-widest"><%= @header_subtitle %></p>
             <% end %>
@@ -89,7 +89,7 @@
           <.link href={~p"/users/register"} class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Register</.link>
         </li>
         <li>
-          <.link href={~p"/users/log-in"} class="px-4 py-2 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-400 hover:bg-blue-600/30 hover:text-blue-300 transition-all text-sm font-semibold">Log in</.link>
+          <.link href={~p"/users/log-in"} class="text-sm font-medium text-slate-300 hover:text-white transition-colors">Log in</.link>
         </li>
       <% end %>
     </ul>
@@ -137,7 +137,7 @@
 </aside>
 
 <main id="main-content" class="st-main-with-sidebar sidebar-collapsed" style="padding-top: 80px; padding-bottom: 20px; padding-right: 20px; padding-left: 20px;">
-  {@inner_content}
+  <%= if assigns[:inner_content], do: @inner_content, else: render_slot(@inner_block) %>
 </main>
 
 <.flash_group flash={@flash} />
