@@ -56,14 +56,14 @@ defmodule TesseractStudioWeb.CoreComponents do
       id={@id}
       phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
       role="alert"
-      class="toast toast-bottom toast-end z-50 mb-6 mr-6"
+      class="toast toast-bottom toast-end z-50 mb-12 mx-6"
       {@rest}
     >
       <div class={[
-        "w-96 max-w-full overflow-hidden rounded-none shadow-2xl backdrop-blur-xl border p-5 flex items-center justify-center gap-3 transform transition-all duration-300 hover:scale-[1.02]",
+        "w-[400px] min-h-[80px] rounded-xl shadow-2xl backdrop-blur-xl border flex items-center transform transition-all duration-300 hover:scale-[1.02] ts-toast-content",
         @kind == :info &&
-          "bg-cyan-500/10 text-cyan-50 border-cyan-500 shadow-cyan-500/10",
-        @kind == :error && "bg-red-500/10 text-red-50 border-red-500 shadow-red-500/10"
+          "bg-cyan-500/10 text-cyan-50 border-cyan-500 shadow-cyan-500/20",
+        @kind == :error && "bg-red-500/10 text-red-50 border-red-500 shadow-red-500/20"
       ]}>
         <.icon
           :if={@kind == :info}

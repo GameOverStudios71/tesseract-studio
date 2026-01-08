@@ -40,7 +40,7 @@ defmodule TesseractStudioWeb.UserLive.Login do
 
           <div
             :if={local_mail_adapter?()}
-            class="flex items-center justify-center gap-4 p-5 bg-cyan-500/10 border border-cyan-500 backdrop-blur-md text-sm text-white rounded-none"
+            class="flex items-center justify-center gap-4 bg-cyan-500/10 border border-cyan-500 backdrop-blur-md text-sm text-white ts-mail-adapter"
           >
             <.icon name="hero-information-circle" class="size-5 shrink-0 text-cyan-400 mt-0.5" />
             <div class="space-y-1">

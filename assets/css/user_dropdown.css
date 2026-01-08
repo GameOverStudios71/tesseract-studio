@@ -1,0 +1,227 @@
+/* RESTORED USER DROPDOWN STYLES - BOOTSTRAP LIKE FIX */
+
+/* Wrapper for the whole dropdown system */
+.ts-user-dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 1050;
+    /* Bootstrap default z-index for dropdowns */
+}
+
+/* Bridge gap for hover stability */
+.ts-user-dropdown::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    /* Covers the 0.5rem margin plus safe area */
+    background: transparent;
+}
+
+/* The button that triggers the dropdown */
+.ts-user-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.ts-user-btn:hover,
+.ts-user-dropdown:hover .ts-user-btn {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Avatar container */
+.ts-user-avatar-container {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ts-user-avatar-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    background-color: #3b82f6;
+}
+
+/* The Dropdown Menu Itself */
+.ts-user-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 0.5rem;
+
+    /* Visibility Control */
+    display: none;
+    /* Default hidden */
+
+    min-width: 300px;
+    /* Largura maior como solicitado */
+    z-index: 1050;
+
+    /* Estilo do Painel (Bootstrap-like dark) */
+    background: #1e1e24;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    padding: 0;
+    /* Padding controlado internamente */
+    overflow: hidden;
+}
+
+/* Show on hover */
+.ts-user-dropdown:hover .ts-user-menu {
+    display: block;
+    animation: ts-fadeIn 0.2s ease-out;
+}
+
+@keyframes ts-fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header Section */
+.ts-menu-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ts-menu-avatar-lg {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.ts-menu-avatar-lg-inner {
+    width: 100%;
+    height: 100%;
+    background-color: #3b82f6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.ts-menu-user-info {
+    flex: 1;
+    overflow: hidden;
+}
+
+.ts-menu-user-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ts-menu-user-email {
+    font-size: 12px;
+    color: #94a3b8;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Menu Items List */
+.ts-menu-list {
+    list-style: none;
+    padding: 8px 0;
+    margin: 0;
+}
+
+.ts-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    color: #e2e8f0;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.ts-menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    padding-left: 25px;
+    /* Efeito de deslize sutil no hover */
+}
+
+.ts-menu-item i {
+    color: #64748b;
+    width: 20px;
+    text-align: center;
+    transition: color 0.2s;
+}
+
+.ts-menu-item:hover i {
+    color: #3b82f6;
+}
+
+.ts-menu-divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 8px 0;
+}
+
+/* Force Padding Utility Classes */
+/* User requested explicit padding adjustments that were failing via utility classes */
+
+.ts-toast-content {
+    padding: 1.5rem !important;
+    /* p-6 equivalent, forced */
+    gap: 1.25rem !important;
+    /* gap-5 equivalent */
+}
+
+.ts-mail-adapter {
+    padding: 1.5rem !important;
+    /* p-6 equivalent */
+    margin-bottom: 1.5rem !important;
+    /* mb-6 equivalent */
+    border-radius: 0.5rem !important;
+    /* rounded-lg */
+}
